@@ -22,7 +22,20 @@
         - Upgrade modules
             - ice melter
             - gas condenser / separator
-            - liquid / gas storgae
+            - liquid / gas storage
+    -Mining System
+        - Asteroid class
+            - embeded Block class
+            - shape generation from SVG?
+            - vertex shader
+                - pass rectange info as line primatives
+                    - xPos, yPos, w, h
+                        - top: (xPos,yPos),(xPos + w, yPos)
+                        - right:(xPos + w, yPos),(xPos + w, yPos + h)
+                        - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
+                        - left: (xPos, yPos + h),(xPos, yPos)
+
+
             
 
             
