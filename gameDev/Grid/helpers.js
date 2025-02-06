@@ -1,2 +1,6 @@
-//Utilily functions
+//Utility functions
 
+function clickDrag(){
+	
+
+}

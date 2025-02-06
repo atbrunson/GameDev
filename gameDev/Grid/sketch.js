@@ -2,28 +2,25 @@ let xOffset = 0;
 let yOffset = 0;
 let side = 50;
 let fillColor = "black";
-
+let dragged = false;
 function setup() {
-  createCanvas(800, 800);
- 
-  grid = new Board();
-  
+  createCanvas(700, 700);
+
+  grid = new Board(11, 11);
   grid.rows = 15;
   grid.cols = 15;
-
-  myBlock = new Block(50, 50, 50, 50);
-
+  myBlock = new Block(1, 1, grid.sizeX, grid.sizeY);
+  
 }
 
 function draw() {
-  background(225);
-   xOffset = mouseX - width / 2;
+  background(210);
+  xOffset = mouseX - width / 2;
   yOffset = mouseY - height / 2;
-    
-  grid.display();
 
+  grid.display();
   myBlock.display();
-  
+
   //Change color if the mouse is inside the block
   if (
     mouseX > myBlock.xPos &&
@@ -35,18 +32,33 @@ function draw() {
     myBlock.highlighted();
     fill(fillColor);
   } else myBlock.selected = false;
-    
+
   //Update position of the block if it's selected and it's dragged
   if (myBlock.selected && mouseIsPressed && mouseButton === LEFT) {
-    myBlock.update(mouseX - myBlock.w /2 , mouseY - myBlock.h /2);
+    dragged = true
   }
-  
+
+  if (dragged) {
+    myBlock.highlight = "green"
+    myBlock.update(
+      constrain(mouseX - myBlock.w / 2, 0, width - myBlock.w) ,
+      constrain(mouseY - myBlock.h / 2, 0, height - myBlock.h)
+    )
+    if (0 < myBlock.xPos > width) { myBlock.update(0, 0) }
+    if (0 < myBlock.yPos > height) { myBlock.update(0, 0) }
+    if (!mouseIsPressed){
+      dragged = false
+      myBlock.highlight = "red"
+    }
+  }
+
+
+
   // Display the texts for debugging 
-  fill(fillColor)
+  fill(fillColor);
   strokeWeight(2);
-  textSize(22);
-  text(`mouseX: ${mouseX} mouseY: ${mouseY}`, 25, 25);
-  text(`xPos: ${myBlock.xPos} yPos: ${myBlock.yPos}`, 25, 50);
-  text(`xOffset: ${xOffset} yOffset: ${yOffset}`, 25, 75);
+  textSize(12);
+  text(`mouseX: ${mouseX} mouseY: ${mouseY}`, 5, 15);
+  text(`xPos: ${myBlock.xPos} yPos: ${myBlock.yPos}`, 5, 30);
+  text(`xOffset: ${xOffset} yOffset: ${yOffset}`, 5, 45);
 }
-  

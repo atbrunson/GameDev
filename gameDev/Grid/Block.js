@@ -7,7 +7,8 @@ class Block {
     this.c = c;
     this.highlight = highlight;
     this.selected = false
-  
+    this.xCenter = this.xPos + w / 2
+    this.yCenter = this.yPos + h / 2
   }
 
   display() {
@@ -22,10 +23,10 @@ class Block {
     rect(this.xPos, this.yPos, this.h, this.w);
   }
 
-  update(xNew, yNew){
+  update(xNew, yNew) {
     this.xPos = xNew
     this.yPos = yNew
-        
+
   }
 
 
