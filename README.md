@@ -1,7 +1,7 @@
 # p5.js
 [Grid Example](https://atbrunson.github.io/p5-js/gameDev/Grid/)
+[Grid github.dev](https://github.dev/atbrunson/p5-js/blob/main/gameDev/Grid/sketch.js)
 
-[Grid github.dev](https://atbrunson.github.dev/p5-js/gameDev/Grid/sketch.js)
 - Astroid Belt Game Ideas
     - Ship Systems Management 
         - cargo management
