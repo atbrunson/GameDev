@@ -1,6 +1,6 @@
 # p5.js
 - Astroid Belt Game Ideas
-    - Ship Systems Management 
+    - Ship Systems Management
         - cargo management
         - reactor ignition pellets
         - thruster DT Fuel
@@ -52,6 +52,6 @@
                 - Select Astriod
                 - Select Crew
                     - Crew Stats
-                        - O_2_ rate 
+                        - O_2_ rate
                 - Select Returning Delta Mass
         - Mass and ENgergy Balances
