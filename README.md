@@ -58,3 +58,13 @@
                         - O_2_ rate
                 - Select Returning Delta Mass
         - Mass and ENgergy Balances
+
+##Code Architecture
+###Ship Builder
+- Global Object Manager Class
+    - Grid Class (Ship Build Area)
+        - Berth Size (Grid size)
+    - Grid Class (Available Component Area)
+    - Block Class (Ship components)
+    - Player Class (Character's Ship)
+    - 
