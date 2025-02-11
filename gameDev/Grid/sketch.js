@@ -1,16 +1,28 @@
+
 let xOffset = 0;
 let yOffset = 0;
 let side = 50;
 let fillColor = "black";
 let dragged = false;
+
+let scenes = {}
+
+
+
+function preload(){
+  //Load save state
+  //loadJSON(path, [callback], [errorCallback], [datatype])
+}
+
 function setup() {
   createCanvas(700, 700);
 
-  grid = new Board(11, 11);
-  grid.rows = 15;
-  grid.cols = 15;
-  myBlock = new Block(1, 1, grid.sizeX, grid.sizeY);
+  grid = new Board(9, 5, 1, 350,"TOP_LEFT");
+  grid.xOffset = 5
+  grid.yOffset = 55
+  myBlock = new Block(75, 75, grid.size-grid.strokeWeight, grid.size-grid.strokeWeight);
   
+  console.table(grid)
 }
 
 function draw() {

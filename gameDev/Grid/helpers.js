@@ -1,6 +1,0 @@
-//Utility functions
-
-function clickDrag(){
-	
-
-}
