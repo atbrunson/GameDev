@@ -17,12 +17,15 @@ function preload(){
 function setup() {
   createCanvas(700, 700);
 
-  grid = new Board(9, 5, 1, 350,"TOP_LEFT");
-  grid.xOffset = 5
+  grid = new Board(9, 9, 5, 400,"TOP_LEFT");
+  grid.xOffset = 0
   grid.yOffset = 55
-  myBlock = new Block(75, 75, grid.size-grid.strokeWeight, grid.size-grid.strokeWeight);
+  grid.stroke = 150
+  grid.strokeWeight = 1
+  grid.snaps = true
+  myBlock = new Block(0, 55, grid.size-grid.strokeWeight, grid.size-grid.strokeWeight);
   
-  console.table(grid)
+  console.log(grid)
 }
 
 function draw() {
