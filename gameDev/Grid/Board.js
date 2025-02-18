@@ -35,7 +35,7 @@ class Board {
         this.h = this.size * this.rows
         console.log("grid sized for number columns")
         break;
-    
+    s
     } // end size 
     
     this.mode = mode //Grid alignment properties
