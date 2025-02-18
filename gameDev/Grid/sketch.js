@@ -17,7 +17,7 @@ function preload(){
 function setup() {
   createCanvas(700, 700);
 
-  grid = new Board(9, 9, 5, 400,"TOP_LEFT");
+  grid = new Board(10, 10, 400, 400,"TOP_LEFT");
   grid.xOffset = 0
   grid.yOffset = 55
   grid.stroke = 150

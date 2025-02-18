@@ -27,16 +27,17 @@ class Board {
       case this.rows > this.cols:    
         //needs constraints width, hight
         this.size = (this.h + this.strokeWeight) / this.rows;
-        this.w = this.size * this.cols
-        console.log("grid sized for number of rows")
+        this.w = this.size * this.cols;
+        console.log("grid sized for number of rows");
         break;
       case this.rows < this.cols:
         this.size = (this.w + this.strokeWeight) / this.cols;
-        this.h = this.size * this.rows
+        this.h = this.size * this.rows;
         console.log("grid sized for number columns")
         break;
     s
     } // end size 
+    
     
     this.mode = mode //Grid alignment properties
     switch (this.mode) { // Defines the alignment of the grid
@@ -78,10 +79,7 @@ class Board {
         break;
     } // end Switch
 
-    this.cells = {}
-    // 
-    // Needs naming structure (A,1) -> (AAA,134083)
-    // Needs the (x,y) pairs of the center pixel of each cell
+    this.cells = []
     for (let r = 0; r < this.rows; r++) {
 
       this.cells[r] = []                          //assign row
@@ -89,10 +87,9 @@ class Board {
       for (let c = 0; c < this.cols; c++) {
 
         this.cells[r][c] = [
-          (this.x + this.size + this.xOffset) + (this.size * c),
-          (this.y + this.size + this.yOffset) + (this.size * r)
+          (this.x + this.xOffset + this.size + this.strokeWeight/2) * c,
+          (this.y + this.yOffset + this.size + this.strokeWeight/2) * r
         ]
-
       }
     }
 
@@ -109,7 +106,8 @@ class Board {
       rect(this.x + this.xOffset + this.strokeWeight, this.y + this.yOffset + this.strokeWeight, this.w + this.strokeWeight, this.h + this.strokeWeight);
     }
 
-    if(this.lines){    
+    // TODO draw lines to account for stroke weights
+    if(this.lines){ 
       // draws the grid rows 
       for (let r = 0; r < this.rows - 1; r++) {
         line(this.x + this.xOffset, this.y + this.yOffset + this.size * (r + 1), this.w + this.x + this.xOffset, (r + 1) * this.size + this.y + this.yOffset); //line(x1,y1,x2,y)
@@ -121,14 +119,21 @@ class Board {
     }
     
     if(this.snaps){
+      for (let r = 0; r < this.cells.length; r++) {
+        for (let c = 0; c < this.cells[r].length; c++) {
+          push()
+          stroke('red')
+          circle(
+            this.cells[r][c][0]+this.xOffset,
+            this.cells[r][c][1]+this.yOffset, 
+            5
+          )
+          pop()
 
-      for (let r = 0; r < this.rows - 1; r++) {
-        for (let c = 0; c < this.rows - 1; c++){
-          circle(this.cells[r][c][0], (this.cells[r][c][1],20))
         }
       }
-
     }
+    
 
       
     
