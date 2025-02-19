@@ -1,4 +1,4 @@
-class Board {
+class Grid {
   constructor(rows, cols, w = width, h = height, mode = "TOP_LEFT") {
 
     this.rows = rows; // Default grid with 2 rows
