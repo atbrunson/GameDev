@@ -21,10 +21,10 @@ class Board {
     this.w = w
     this.h = h
 
-    switch (this.rows){
-      
+    switch (this.rows) {
+
       case this.rows = this.cols:
-      case this.rows > this.cols:    
+      case this.rows > this.cols:
         //needs constraints width, hight
         this.size = (this.h + this.strokeWeight) / this.rows;
         this.w = this.size * this.cols;
@@ -35,10 +35,10 @@ class Board {
         this.h = this.size * this.rows;
         console.log("grid sized for number columns")
         break;
-    s
+        s
     } // end size 
-    
-    
+
+
     this.mode = mode //Grid alignment properties
     switch (this.mode) { // Defines the alignment of the grid
       case "TOP_LEFT":
@@ -50,7 +50,7 @@ class Board {
         this.y = 0;
         break;
       case "TOP_RIGHT":
-        this.x = width - this.w
+        this.x = width - this.w - this.strokeWeight**2
         this.y = 0
         break;
       case "CENTER_LEFT":
@@ -58,24 +58,24 @@ class Board {
         this.y = height / 2 - this.h / 2
         break;
       case "CENTER_MIDDLE":
-        this.x = width / 2 - this.w / 2
-        this.y = height / 2 - this.h / 2
+        this.x = width / 2 - this.w / 2 - (this.strokeWeight ** 2)
+        this.y = height / 2 - this.h / 2 - (this.strokeWeight ** 2)
         break;
       case "CENTER_RIGHT":
-        this.x = width - this.w
-        this.y = height / 2 - this.h / 2
+        this.x = width - this.w - this.strokeWeight ** 2
+        this.y = height / 2 - this.h / 2 - (this.strokeWeight ** 2)
         break;
       case "BOTTOM_LEFT":
         this.x = 0,
           this.y = height - this.h;
         break;
       case "BOTTOM_MIDDLE":
-        this.x = width / 2 - this.w / 2;
-        this.y = height - this.h;
+        this.x = width / 2 - this.w / 2 - (this.strokeWeight ** 2);
+        this.y = height - this.h - (this.strokeWeight ** 2);
         break;
       case "BOTTOM_RIGHT":
-        this.x = width - this.w;
-        this.y = height - this.h;
+        this.x = width - this.w - this.strokeWeight * 2;
+        this.y = height - this.h - this.strokeWeight * 2;
         break;
     } // end Switch
 
@@ -87,8 +87,8 @@ class Board {
       for (let c = 0; c < this.cols; c++) {
 
         this.cells[r][c] = [
-          (this.x + this.xOffset + this.size + this.strokeWeight/2) * c,
-          (this.y + this.yOffset + this.size + this.strokeWeight/2) * r
+          (this.x + this.xOffset + this.size + this.strokeWeight / 2) * c,
+          (this.y + this.yOffset + this.size + this.strokeWeight / 2) * r
         ]
       }
     }
@@ -103,29 +103,45 @@ class Board {
 
     // Resizes grid if there this boarder is shown
     if (this.boarder) {
-      rect(this.x + this.xOffset + this.strokeWeight, this.y + this.yOffset + this.strokeWeight, this.w + this.strokeWeight, this.h + this.strokeWeight);
+      rect(
+        this.x + this.xOffset + this.strokeWeight / 2,
+        this.y + this.yOffset + this.strokeWeight / 2,
+        this.w,
+        this.h
+      );
     }
 
     // TODO draw lines to account for stroke weights
-    if(this.lines){ 
+    if (this.lines) {
       // draws the grid rows 
       for (let r = 0; r < this.rows - 1; r++) {
-        line(this.x + this.xOffset, this.y + this.yOffset + this.size * (r + 1), this.w + this.x + this.xOffset, (r + 1) * this.size + this.y + this.yOffset); //line(x1,y1,x2,y)
-      }
-      // draws the grid cols
+        line(
+          (this.x + this.xOffset + this.strokeWeight / 2),
+          (r + 1) * this.size + this.strokeWeight / 2 + this.y + this.yOffset,
+          this.w + this.x + this.xOffset + this.strokeWeight / 2,
+          (r + 1) * this.size + this.strokeWeight / 2 + this.y + this.yOffset
+        );
+      }; //rows: line(x1,y1,x2,y)
+
       for (let c = 0; c < this.cols - 1; c++) {
-        line((c + 1) * this.size + this.x + this.xOffset, this.y + this.yOffset, (c + 1) * this.size + this.x + this.xOffset, this.h + this.y + this.yOffset); //line(x1,y1,x2,y)
-      }
-    }
-    
-    if(this.snaps){
+        line(
+          (c + 1) * this.size + this.strokeWeight / 2 + this.x + this.xOffset,
+          this.y + this.yOffset + this.strokeWeight / 2,
+          (c + 1) * this.size + this.strokeWeight / 2 + this.x + this.xOffset,
+          this.h + this.y + this.yOffset + this.strokeWeight / 2
+        );
+      }; // columns: line(x1,y1,x2,y)
+
+    }// end lines
+
+    if (this.snaps) {
       for (let r = 0; r < this.cells.length; r++) {
         for (let c = 0; c < this.cells[r].length; c++) {
           push()
           stroke('red')
           circle(
-            this.cells[r][c][0]+this.xOffset,
-            this.cells[r][c][1]+this.yOffset, 
+            this.cells[r][c][0] + this.xOffset,
+            this.cells[r][c][1] + this.yOffset,
             5
           )
           pop()
@@ -133,10 +149,9 @@ class Board {
         }
       }
     }
-    
 
-      
-    
-
-  }
+  }// end display()
 }
+
+
+// (xPos + xOffset)
