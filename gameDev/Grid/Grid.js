@@ -50,7 +50,7 @@ class Grid {
         this.y = 0;
         break;
       case "TOP_RIGHT":
-        this.x = width - this.w - this.strokeWeight**2
+        this.x = width - this.w;
         this.y = 0
         break;
       case "CENTER_LEFT":
@@ -58,24 +58,24 @@ class Grid {
         this.y = height / 2 - this.h / 2
         break;
       case "CENTER_MIDDLE":
-        this.x = width / 2 - this.w / 2 - (this.strokeWeight ** 2)
-        this.y = height / 2 - this.h / 2 - (this.strokeWeight ** 2)
+        this.x = width / 2 - this.w / 2
+        this.y = height / 2 - this.h / 2
         break;
       case "CENTER_RIGHT":
-        this.x = width - this.w - this.strokeWeight ** 2
-        this.y = height / 2 - this.h / 2 - (this.strokeWeight ** 2)
+        this.x = width - this.w;
+        this.y = height / 2 - this.h / 2 
         break;
       case "BOTTOM_LEFT":
         this.x = 0,
           this.y = height - this.h;
         break;
       case "BOTTOM_MIDDLE":
-        this.x = width / 2 - this.w / 2 - (this.strokeWeight ** 2);
-        this.y = height - this.h - (this.strokeWeight ** 2);
+        this.x = width / 2 - this.w / 2;
+        this.y = height - this.h;
         break;
       case "BOTTOM_RIGHT":
-        this.x = width - this.w - this.strokeWeight * 2;
-        this.y = height - this.h - this.strokeWeight * 2;
+        this.x = width - this.w;
+        this.y = height - this.h;
         break;
     } // end Switch
 
