@@ -12,17 +12,17 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(500, 500);
 
-  grid = new Grid(9, 9, 400, 400, "BOTTOM_MIDDLE");
+  grid = new Grid(4, 5, 300, 300, "TOP_LEFT");
   grid.xOffset = 0
   grid.yOffset = 0
-  grid.stroke = 0
-  grid.strokeWeight = 15
+  grid.stroke = 150
+  grid.strokeWeight = 2
   grid.snaps = false
   myBlock = new Block(0, 55, grid.size - grid.strokeWeight, grid.size - grid.strokeWeight);
 
-  console.log(grid)
+
 }
 
 function draw() {
@@ -70,7 +70,16 @@ function draw() {
   fill(fillColor);
   strokeWeight(2);
   textSize(12);
-  text(`mouseX: ${mouseX} mouseY: ${mouseY}`, 5, 15 + grid.h + grid.yOffset + grid.strokeWeight);
-  text(`xPos: ${myBlock.xPos} yPos: ${myBlock.yPos}`, 5, 30 + grid.h + grid.yOffset + grid.strokeWeight);
-  text(`xOffset: ${grid.xOffset} yOffset: ${grid.yOffset}`, 5, 45 + grid.h + grid.yOffset + grid.strokeWeight);
+  text(`mouseX: ${mouseX} mouseY: ${mouseY}` ,
+    5, 15 + grid.h + grid.yOffset + grid.strokeWeight
+  );
+  text(`xPos: ${myBlock.xPos} yPos: ${myBlock.yPos}`,
+    5, 30 + grid.h + grid.yOffset + grid.strokeWeight
+  );
+  text(`Rows: ${grid.rows} Cols: ${grid.cols}`,
+    5, 45 + grid.h + grid.yOffset + grid.strokeWeight
+  );
+  text(`grid.w: ${grid.w} grid.h: ${grid.h}`,
+    5, 60 + grid.h + grid.yOffset + grid.strokeWeight
+  );
 }

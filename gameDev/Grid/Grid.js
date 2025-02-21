@@ -14,70 +14,29 @@ class Grid {
     this.strokeWeight = 1;
     this.xOffset = 0
     this.yOffset = 0
-
-
-    // Needs: Grid Over specified
-    // (if this.rows > this.cols){}
+    this.mode = mode //Grid alignment property
     this.w = w
     this.h = h
 
-    switch (this.rows) {
-
-      case this.rows = this.cols:
-      case this.rows > this.cols:
-        //needs constraints width, hight
-        this.size = (this.h + this.strokeWeight) / this.rows;
-        this.w = this.size * this.cols;
-        console.log("grid sized for number of rows");
+    switch (true) {
+      //needs constraints width, hight
+      case (this.rows == this.cols):
+        this.size = this.h / this.rows
         break;
-      case this.rows < this.cols:
-        this.size = (this.w + this.strokeWeight) / this.cols;
+
+      case (this.rows > this.cols):
+        this.size = this.h / this.rows
+        this.w = this.size * this.cols
+        break;
+
+      case (this.rows < this.cols):
+        this.size = this.w / this.cols
         this.h = this.size * this.rows;
-        console.log("grid sized for number columns")
         break;
-        s
-    } // end size 
+    } // end grid sizing
 
 
-    this.mode = mode //Grid alignment properties
-    switch (this.mode) { // Defines the alignment of the grid
-      case "TOP_LEFT":
-        this.x = 0;
-        this.y = 0;
-        break;
-      case "TOP_MIDDLE":
-        this.x = width / 2 - this.w / 2;
-        this.y = 0;
-        break;
-      case "TOP_RIGHT":
-        this.x = width - this.w;
-        this.y = 0
-        break;
-      case "CENTER_LEFT":
-        this.x = 0
-        this.y = height / 2 - this.h / 2
-        break;
-      case "CENTER_MIDDLE":
-        this.x = width / 2 - this.w / 2
-        this.y = height / 2 - this.h / 2
-        break;
-      case "CENTER_RIGHT":
-        this.x = width - this.w;
-        this.y = height / 2 - this.h / 2 
-        break;
-      case "BOTTOM_LEFT":
-        this.x = 0,
-          this.y = height - this.h;
-        break;
-      case "BOTTOM_MIDDLE":
-        this.x = width / 2 - this.w / 2;
-        this.y = height - this.h;
-        break;
-      case "BOTTOM_RIGHT":
-        this.x = width - this.w;
-        this.y = height - this.h;
-        break;
-    } // end Switch
+
 
     this.cells = []
     for (let r = 0; r < this.rows; r++) {
@@ -100,6 +59,45 @@ class Grid {
     stroke(this.stroke);
     strokeWeight(this.strokeWeight);
     noFill();
+
+    switch (this.mode) { // Defines the alignment of the grid
+      case "TOP_LEFT":
+        this.x = 0;
+        this.y = 0;
+        break;
+      case "TOP_MIDDLE":
+        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = 0;
+        break;
+      case "TOP_RIGHT":
+        this.x = width - this.w - this.strokeWeight;
+        this.y = 0
+        break;
+      case "CENTER_LEFT":
+        this.x = 0
+        this.y = height / 2 - this.h / 2
+        break;
+      case "CENTER_MIDDLE":
+        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = height / 2 - this.h / 2 - this.strokeWeight / 2;
+        break;
+      case "CENTER_RIGHT":
+        this.x = width - this.w - this.strokeWeight;
+        this.y = height / 2 - this.h / 2 - this.strokeWeight / 2
+        break;
+      case "BOTTOM_LEFT":
+        this.x = 0,
+          this.y = height - this.h;
+        break;
+      case "BOTTOM_MIDDLE":
+        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = height - this.h - this.strokeWeight;
+        break;
+      case "BOTTOM_RIGHT":
+        this.x = width - this.w - this.strokeWeight;
+        this.y = height - this.h - this.strokeWeight;
+        break;
+    } // end Switch
 
     // Resizes grid if there this boarder is shown
     if (this.boarder) {
@@ -134,21 +132,21 @@ class Grid {
 
     }// end lines
 
-    if (this.snaps) {
-      for (let r = 0; r < this.cells.length; r++) {
-        for (let c = 0; c < this.cells[r].length; c++) {
-          push()
-          stroke('red')
-          circle(
-            this.cells[r][c][0] + this.xOffset,
-            this.cells[r][c][1] + this.yOffset,
-            5
-          )
-          pop()
+    // if (this.snaps) {
+    //   for (let r = 0; r < this.cells.length; r++) {
+    //     for (let c = 0; c < this.cells[r].length; c++) {
+    //       push()
+    //       stroke('red')
+    //       circle(
+    //         this.cells[r][c][0] + this.xOffset,
+    //         this.cells[r][c][1] + this.yOffset,
+    //         5
+    //       )
+    //       pop()
 
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
 
   }// end display()
 }
