@@ -1,0 +1,102 @@
+# Space Game
+
+
+## Astroid Belt Game Ideas
+
+- Ship Systems Management
+- cargo management
+- reactor ignition pellets
+- thruster DT Fuel
+- Ship Design and Upgrades
+- Minimum ship modules
+  - hull
+  - small (5x5)
+  - medium (11x11)
+  - large (19x15)
+  - ship control / navigation
+  - reactor / thruster
+  - small (3x5) (- 3x2 hull)
+  - medium (5x10) (- 5x4 hull)
+  - large (10x20) (- 10x12 hull)
+  - life support
+  - air per crew member
+  - nutrition per crew member
+  - cooling per crew member
+- Upgrade modules
+  - ice melter
+  - gas condenser / separator
+  - liquid / gas storage
+- Mining System
+  - Asteroid class
+    - embedded Block class
+    - shape generation from SVG?
+    - vertex shader
+      - INPUT: rectangle info as line primitives
+        - xPos, yPos, w, h
+        - top: (xPos,yPos),(xPos + w, yPos)
+        - right:(xPos + w, yPos),(xPos + w, yPos + h)
+        - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
+        - left: (xPos, yPos + h),(xPos, yPos)
+    - geometry shader
+      - INPUT: bounding box information -> generate astroid from line primitives
+      - wrapping algorithm (number of triangles determined how?)
+    - compute shader
+      - INPUT: astroid object - generate composition
+        - mineral composition determined by rarity
+        - metal determined by size & rarity
+        - Ices by rarity size
+    - Astroid Composition
+      - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
+      - Spacing
+
+- Belt Map
+  - Trip Computer
+    - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
+    - Select Astroid
+    - Select Crew
+      - Crew Stats
+      - O_2_ rate
+    - Select Returning Delta Mass
+      - Mass and EEnergy Balances
+
+## Code Architecture
+
+### Ship Builder
+
+- Global Object Manager Class
+  - Grid Class (Ship Build Area)
+    - Berth Size (Grid size)
+  - Grid Class (Available Component Area)
+  - Block Class (Ship components)
+  - Player Class (Character's Ship)
+  -
+  - Asteroid class
+    - embedded Block class
+    - shape generation from SVG?
+    - vertex shader
+      - INPUT: rectangle info as line primitives
+        - xPos, yPos, w, h
+          - top: (xPos,yPos),(xPos + w, yPos)
+          - right:(xPos + w, yPos),(xPos + w, yPos + h)
+          - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
+          - left: (xPos, yPos + h),(xPos, yPos)
+    - geometry shader
+      - INPUT: bounding box information -> generate astroid from line primitives
+        - wrapping algorithm (number of triangles determined how?)
+    - compute shader
+      - INPUT: astroid object - generate composition
+        - mineral composition determined by rarity
+        - metal determined by size & rarity
+        - Ices by rarity size
+  - Astroid Composition
+    - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
+    - Spacing
+  - Belt Map
+    - Trip Computer
+      - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
+      - Select Asteroid
+      - Select Crew
+        - Crew Stats
+          - O_2_ rate
+      - Select Returning Delta Mass
+  - Mass and Energy Balances
