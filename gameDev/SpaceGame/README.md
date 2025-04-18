@@ -48,7 +48,24 @@
     - Astroid Composition
       - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
       - Spacing
-
+  - Mechanics
+    - Background
+      - Regolith
+        - Crabs // Flys // Swarms move to foreground
+      - Rock
+        - Drill Crabs process into Regolith
+      - Metal / Dense Rock
+        - Laser Crabs process into Regolith
+      - Rears
+        - Crab Carriers remove to ship
+    - Foreground
+      - Regolith
+        - Crew Inventory
+      - Rock
+        - Crew Inventory
+      - Rear
+      - Crew Inventory
+    - 
 - Belt Map
   - Trip Computer
     - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
@@ -57,7 +74,7 @@
       - Crew Stats
       - O_2_ rate
     - Select Returning Delta Mass
-      - Mass and EEnergy Balances
+      - Mass and Energy Balances
 
 ## Code Architecture
 
