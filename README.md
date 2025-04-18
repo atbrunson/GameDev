@@ -1,5 +1,3 @@
-# p5.js  
-
 ## GameDev  
 
 ### Projects  
