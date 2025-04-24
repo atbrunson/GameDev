@@ -76,6 +76,20 @@
     - Select Returning Delta Mass
       - Mass and Energy Balances
 
+- Crew System
+  - Player Creation (zeroth crew member)
+  - Bio-stats
+    - Mass
+    - VO2max
+    - Carry Capacity
+    - Gravity tolerance
+
+    - Conributing Factors
+      - Origin
+      - Gender
+      - Age
+
+
 ## Code Architecture
 
 ### Ship Builder
