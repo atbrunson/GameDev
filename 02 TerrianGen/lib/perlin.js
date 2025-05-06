@@ -1,10 +1,14 @@
-'use strict';
+
 let perlin = {
+    
     rand_vect: function(){
+        'use strict';
         let theta = Math.random() * 2 * Math.PI;
         return {x: Math.cos(theta), y: Math.sin(theta)};
     },
+    
     dot_prod_grid: function(x, y, vx, vy){
+        'use strict';
         let g_vect;
         let d_vect = {x: x - vx, y: y - vy};
         if (this.gradients[[vx,vy]]){
@@ -15,17 +19,25 @@ let perlin = {
         }
         return d_vect.x * g_vect.x + d_vect.y * g_vect.y;
     },
+    
     smootherstep: function(x){
-        return 6*x**5 - 15*x**4 + 10*x**3;
+        'use strict';
+        return 6*x^5 - 15*x^4 + 10*x^3;
     },
+    
     interp: function(x, a, b){
+        'use strict';
         return a + this.smootherstep(x) * (b-a);
     },
+    
     seed: function(){
+        'use strict';
         this.gradients = {};
         this.memory = {};
     },
+    
     get: function(x, y) {
+        'use strict';
         if (this.memory.hasOwnProperty([x,y]))
             return this.memory[[x,y]];
         let xf = Math.floor(x);
@@ -41,5 +53,5 @@ let perlin = {
         this.memory[[x,y]] = v;
         return v;
     }
-}
+};
 perlin.seed();

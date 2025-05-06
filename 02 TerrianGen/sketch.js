@@ -1,34 +1,81 @@
+
 let row;
 let col;
 
-let scl = 4;
-let zm = 0.034
+
+// Noise Parameters
+
+let freq = 5;   // Frequency of noise
+let amp = 45;    // Amplitude of noise
+let phase = 0;  // Starting angle of shape
+
+let xOff = -100;
+let yOff = -100;
+let rad = 100;
+let cen = {};
+
+let nVert = 70; // number of vertices
 
 function setup() {
-  createCanvas(800, 620);
+  createCanvas(800, 600);
   background(100);
-  noStroke();
+  //noLoop();
+  stroke(255);
+  //noStroke();
+  fill("#514211");
 
-  row = Math.floor(width / scl);
-  col = Math.floor(height / scl);
-};
+  cen = createVector(width / 2 + xOff, height / 2 + yOff);
 
-// console.log(fills)
+  sFreq = createSlider(0,5,1,0.1);
+  sFreq.position(10, 500);
+  sFreq.size(75);
+  sFreq.value(freq);
+}
+
+
+
 
 function draw() {
-  // let t = 1
-  let t = (frameCount * 0.5)
+  background(100)
+  freq = sFreq.value();
 
-  for (let r = 0; r < row; r++) {
+  beginShape();
+  vertex(cen.x, cen.y);
 
-    for (let c = 0; c < col; c++) {
+  let i = 0;
+  for (let a = TWO_PI; a >= 0; a -= TWO_PI/(nVert)) {  // loop through angles 
+    //Calculate noise values
+    let fP = map(
+      noise(freq * sin(a), freq * cos(a+9999)), //map to scale perlin noise
+      0, 1,
+      -amp, amp
+    );
 
-      fill(Math.floor(128 * (1 + perlin.get(zm * (t+r), zm * (t-c)))));
-      rect(r * scl, c * scl, scl);
+    let x = cen.x + fP + rad * cos(a);   //x_portion
+    let y = cen.y + fP + rad * sin(a);   //y_portion
 
-    };
+    // let x = cen.x + (rad * cos(a));   //CIRCLE
+    // let y = cen.y + (rad * sin(a));   //CIRCLE
 
-  };
 
+    //close shape
+    vertex(x, y);
+  
+    console.log(` f(P): ${fP} Vertex ${x}, ${y} `);
 
-};
+    i++;
+  }
+
+ 
+  
+  console.log(`Vertices: ${i}`);
+  endShape(CLOSE);
+
+  push();
+  stroke(255);
+  ellipse(cen.x, cen.y, 5);
+  pop();
+
+  freq = sFreq.value();
+
+}
