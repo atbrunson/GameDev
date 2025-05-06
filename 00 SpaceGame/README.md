@@ -27,9 +27,21 @@
   - gas condenser / separator
   - liquid / gas storage
 - Mining System
-  - Asteroid class 
-    - embedded Block class
-    - [shape generation] (02 TerrianGen/README.md)
+  - Level Planning
+    - Open Reseach Expoloration Contracts
+      - Trade Union approved prospecting for SSAA (Solar System Astronomical Assciation)
+      - Estbilshed Mining Claims MBTU (Main Belt Trade Union)
+        - Submitt plans for additional minerals
+        - Small one time deposits <= 100kg (bulk material) can be approved _ex post facto_
+          - trade union will apply essential material rates (++) to open orders first
+          - standard rates (+) apply after open orders are filled
+          - special rates apply for SSAA research claims (+++) & toll contracts (+-)
+  - Asteroid class
+    - mineral composition determined by rarity
+    - metal determined by size & rarity
+    - Ices by rarity size
+    - [shape generation](../02%20TerrianGen/readme.md)
+      - SVG / Path encoding & decoding for state saves 
     - vertex shader
       - INPUT: rectangle info as line primitives
         - xPos, yPos, w, h
@@ -40,12 +52,10 @@
     - geometry shader
       - INPUT: bounding box information -> generate astroid from line primitives
       - wrapping algorithm (number of triangles determined how?)
-    - compute shader
-      - INPUT: astroid object - generate composition
-        - mineral composition determined by rarity
-        - metal determined by size & rarity
-        - Ices by rarity size
     - Astroid Composition
+      - mineral composition determined by rarity
+      - metal determined by size & rarity
+      - Ices by rarity size 
       - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
       - Spacing
   - Mechanics
