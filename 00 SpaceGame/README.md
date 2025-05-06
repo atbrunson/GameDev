@@ -27,9 +27,9 @@
   - gas condenser / separator
   - liquid / gas storage
 - Mining System
-  - Asteroid class
+  - Asteroid class 
     - embedded Block class
-    - shape generation from SVG?
+    - [shape generation] (02 TerrianGen/README.md)
     - vertex shader
       - INPUT: rectangle info as line primitives
         - xPos, yPos, w, h
