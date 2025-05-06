@@ -5,7 +5,7 @@
 - [X] with Perlin noise - p5.noise()
 - [ ] closed shapes (vertex at TWO_PI)
   - is the "center" needed as a vertex (Axis of Rotation)?
-- [ ] with openSimplex
+- [ ] with [openSimplex](https://www.npmjs.com/package/open-simplex-noise) 
 
 ### Dust/Gas cloud generation
 - [ ] Marching squares / Meta balls (P5.js | Paper.js)   
