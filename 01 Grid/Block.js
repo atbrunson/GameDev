@@ -29,6 +29,13 @@ class Block {
 
   }
 
+  snap(){
+    // findGrids (return Grid object)
+    // inGrid (return grid object) => look at grid bounds
+    // this.x = Grid.height/Grid.rows
+    // this.y = Grid.width/Grid.cols
+
+  }
 
 
 

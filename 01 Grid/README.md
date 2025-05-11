@@ -8,4 +8,7 @@
 - [X] alignment
 - [X] offset
 - [X] variable rows & cols
-- [ ] map of cell contents (references to objects?)
+- [X] cell structure
+- [X] cell structure alignment
+  - cells do not move with the grid aliment
+- [ ] Block class -> Cell class

@@ -1,155 +1,156 @@
 class Grid {
-  constructor(rows, cols, w = width, h = height, mode = "TOP_LEFT") {
-
-    this.rows = rows; // Default grid with 2 rows
-    // Needs: max rows rows = width / this.rows >= 10? => this.cols = 1
-
-    this.cols = cols; // Default grid with 2 cols
-    // Needs: max cols = height / this.cols >= 10? => this.cols = 1
+  constructor(rows = 2, cols = 2, w = width, h = height, mode = "TOP_LEFT") {
 
     this.boarder = true;
     this.lines = true;
-    this.snaps = false;
     this.stroke = 0;
     this.strokeWeight = 1;
-    this.xOffset = 0
-    this.yOffset = 0
-    this.mode = mode //Grid alignment property
-    this.w = w
-    this.h = h
+    this.xOffset = 0;
+    this.yOffset = 0;
 
-    switch (true) {
-      //needs constraints width, hight
-      case (this.rows == this.cols):
-        this.size = this.h / this.rows
+    this.w = constrain(w, 4, width - this.xOffset - 2 * this.strokeWeight);
+    this.h = constrain(h, 4, height - this.yOffset - 2 * this.strokeWeight);
+
+    this.rows = rows;
+
+    this.cols = cols;
+
+    this.mode = mode // Grid alignment property
+    this.size = constrain(this.h / this.rows, 2)
+    this.cells = [] // create empty cells array
+
+    this.align()
+    this.build()
+    this.display()
+    // this.update()
+
+  }; // end constructor
+
+
+  align() {
+    switch (this.mode) { // Defines the alignment of the grid
+      case "TOP_LEFT":
+        this.x = this.xOffset + 0;
+        this.y = this.yOffset + 0;
+        break;
+      case "TOP_MIDDLE":
+        this.x = this.xOffset + width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = this.yOffset + 0;
+        break;
+      case "TOP_RIGHT":
+        this.x = this.xOffset + width - this.w - 2 * this.strokeWeight;
+        this.y = this.yOffset + 0
+        break;
+      case "CENTER_LEFT":
+        this.x = this.xOffset + 0
+        this.y = this.yOffset + height / 2 - this.h / 2
+        break;
+      case "CENTER_MIDDLE":
+        this.x = this.xOffset + width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = this.yOffset + height / 2 - this.h / 2 - this.strokeWeight / 2;
+        break;
+      case "CENTER_RIGHT":
+        this.x = this.xOffset + width - this.w - this.strokeWeight;
+        this.y = this.yOffset + height / 2 - this.h / 2 - this.strokeWeight / 2
+        break;
+      case "BOTTOM_LEFT":
+        this.x = this.xOffset + 0,
+          this.y = this.yOffset + height - this.h;
+        break;
+      case "BOTTOM_MIDDLE":
+        this.x = this.xOffset + width / 2 - this.w / 2 - this.strokeWeight / 2;
+        this.y = this.yOffset + height - this.h - this.strokeWeight;
+        break;
+      case "BOTTOM_RIGHT":
+        this.x = this.xOffset + width - this.w - this.strokeWeight;
+        this.y = this.yOffset + height - this.h - this.strokeWeight;
         break;
 
-      case (this.rows > this.cols):
+    } // end switch
+  } //end align()
+
+  build() { // grid factory
+
+    switch (this.rows != this.cols) { // select grid & cell size 
+
+      case (this.rows > this.cols): // uses hight if more rows than cols
         this.size = this.h / this.rows
         this.w = this.size * this.cols
         break;
 
-      case (this.rows < this.cols):
+      case (this.rows < this.cols): // uses width if more cols than rows
         this.size = this.w / this.cols
         this.h = this.size * this.rows;
         break;
     } // end grid sizing
 
+    for (let r = 0; r < this.rows; r++) { // iterate over number of rows
 
+      this.cells[r] = []                    // create array in for each row
 
+      for (let c = 0; c < this.cols; c++) { // iterate over number cols  
 
-    this.cells = []
-    for (let r = 0; r < this.rows; r++) {
-
-      this.cells[r] = []                          //assign row
-
-      for (let c = 0; c < this.cols; c++) {
-
-        this.cells[r][c] = [
-          (this.x + this.xOffset + this.size + this.strokeWeight / 2) * c,
-          (this.y + this.yOffset + this.size + this.strokeWeight / 2) * r
-        ]
+        this.cells[r][c] = {  // creates cell object in each row/col pair
+          pos: createVector( // create position vector at top left bounds
+            this.x + (c * this.size) + 2 * this.strokeWeight,
+            this.y + (r * this.size) + 2 * this.strokeWeight
+          ),
+          cen: createVector( // create vector at cell center
+            this.x + (c * this.size) + 2 * this.strokeWeight + this.size / 2,
+            this.y + (r * this.size) + 2 * this.strokeWeight + this.size / 2),
+          open: -1, // cell's state -1 uncheck, 0 checked && closed, 1 checked && open 
+          bounds: -1 // TOP_LEFT, LOWER_LEFT, TOP_RIGHT, LOWER_RIGHT
+        };
+        // REMEMBER: myArray[index] = {object} will reassign the row/col pair each time its called
       }
-    }
+    } console.log(this.cells)
 
-  }; //end constructor
-
+  } // end build()
 
   display() {
     stroke(this.stroke);
     strokeWeight(this.strokeWeight);
     noFill();
 
-    switch (this.mode) { // Defines the alignment of the grid
-      case "TOP_LEFT":
-        this.x = 0;
-        this.y = 0;
-        break;
-      case "TOP_MIDDLE":
-        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
-        this.y = 0;
-        break;
-      case "TOP_RIGHT":
-        this.x = width - this.w - this.strokeWeight;
-        this.y = 0
-        break;
-      case "CENTER_LEFT":
-        this.x = 0
-        this.y = height / 2 - this.h / 2
-        break;
-      case "CENTER_MIDDLE":
-        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
-        this.y = height / 2 - this.h / 2 - this.strokeWeight / 2;
-        break;
-      case "CENTER_RIGHT":
-        this.x = width - this.w - this.strokeWeight;
-        this.y = height / 2 - this.h / 2 - this.strokeWeight / 2
-        break;
-      case "BOTTOM_LEFT":
-        this.x = 0,
-          this.y = height - this.h;
-        break;
-      case "BOTTOM_MIDDLE":
-        this.x = width / 2 - this.w / 2 - this.strokeWeight / 2;
-        this.y = height - this.h - this.strokeWeight;
-        break;
-      case "BOTTOM_RIGHT":
-        this.x = width - this.w - this.strokeWeight;
-        this.y = height - this.h - this.strokeWeight;
-        break;
-    } // end Switch
-
-    // Resizes grid if there this boarder is shown
-    if (this.boarder) {
+    if (this.boarder) { // Resizes grid if there this boarder is shown
       rect(
-        this.x + this.xOffset + this.strokeWeight / 2,
-        this.y + this.yOffset + this.strokeWeight / 2,
+        this.x + this.strokeWeight / 2,
+        this.y + this.strokeWeight / 2,
         this.w,
         this.h
       );
-    }
+    }; // end resize
 
-    // TODO draw lines to account for stroke weights
-    if (this.lines) {
-      // draws the grid rows 
-      for (let r = 0; r < this.rows - 1; r++) {
+    // TODO
+    if (this.lines) { // draws the grid lines 
+
+      for (let r = 0; r < this.rows - 1; r++) { //draws rows
         line(
-          (this.x + this.xOffset + this.strokeWeight / 2),
-          (r + 1) * this.size + this.strokeWeight / 2 + this.y + this.yOffset,
-          this.w + this.x + this.xOffset + this.strokeWeight / 2,
-          (r + 1) * this.size + this.strokeWeight / 2 + this.y + this.yOffset
-        );
-      }; //rows: line(x1,y1,x2,y)
+          (this.x + this.strokeWeight / 2),
+          (r + 1) * this.size + this.strokeWeight / 2 + this.y,
 
-      for (let c = 0; c < this.cols - 1; c++) {
+          this.w + this.x + this.strokeWeight / 2,
+          (r + 1) * this.size + this.strokeWeight / 2 + this.y
+        );
+      }; // end draw rows
+
+      for (let c = 0; c < this.cols - 1; c++) { //draws cols
         line(
-          (c + 1) * this.size + this.strokeWeight / 2 + this.x + this.xOffset,
-          this.y + this.yOffset + this.strokeWeight / 2,
-          (c + 1) * this.size + this.strokeWeight / 2 + this.x + this.xOffset,
-          this.h + this.y + this.yOffset + this.strokeWeight / 2
+          (c + 1) * this.size + this.strokeWeight / 2 + this.x,
+          this.y + this.strokeWeight / 2,
+
+          (c + 1) * this.size + this.strokeWeight / 2 + this.x,
+          this.h + this.y + this.strokeWeight / 2
         );
-      }; // columns: line(x1,y1,x2,y)
+      }; // end draw cols
 
-    }// end lines
+    }; // end grid lines
 
-    // if (this.snaps) {
-    //   for (let r = 0; r < this.cells.length; r++) {
-    //     for (let c = 0; c < this.cells[r].length; c++) {
-    //       push()
-    //       stroke('red')
-    //       circle(
-    //         this.cells[r][c][0] + this.xOffset,
-    //         this.cells[r][c][1] + this.yOffset,
-    //         5
-    //       )
-    //       pop()
+  }; // end display()
 
-    //     }
-    //   }
-    // }
+  // update() {
+  //   this.align
+  //   this.build
+  // };
 
-  }// end display()
 }
-
-
-// (xPos + xOffset)
