@@ -38,6 +38,7 @@
           - special rates apply for SSAA research claims (+++) & toll contracts (+-)
   - Asteroid class
     - mineral composition determined by rarity
+    - 
     - metal determined by size & rarity
     - Ices by rarity size
     - [shape generation](../02%20TerrianGen/readme.md)
@@ -53,11 +54,12 @@
       - INPUT: bounding box information -> generate astroid from line primitives
       - wrapping algorithm (number of triangles determined how?)
     - Astroid Composition
-      - mineral composition determined by rarity
-      - metal determined by size & rarity
-      - Ices by rarity size 
+      - [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
+      ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
       - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
-      - Spacing
+        - mineral composition determined by rarity
+        - metal determined by size & rarity
+        - Ices by rarity size 
   - Mechanics
     - Background
       - Regolith
