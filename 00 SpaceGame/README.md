@@ -8,16 +8,22 @@
 - reactor ignition pellets
 - thruster DT Fuel
 - Ship Design and Upgrades
+  - classes
+    - ultra light
+    - light
+    - heavy
+    - ultra heavy
 - Minimum ship modules
-  - hull
-  - small (5x5)
-  - medium (11x11)
-  - large (19x15)
+  - hull - 0.5m external parameter 
+    - 
+    - small (4x4)
+    - medium (10x10)
+    - large (14x18)
   - ship control / navigation
   - reactor / thruster
-  - small (3x5) (- 3x2 hull)
-  - medium (5x10) (- 5x4 hull)
-  - large (10x20) (- 10x12 hull)
+    - small (3x5) - (3x2 exterior area)
+    - medium (5x10) - (5x4 exterior area)
+    - large (10x20) - (10x12 exterior area)
   - life support
   - air per crew member
   - nutrition per crew member
@@ -100,12 +106,21 @@
       - Origin
       - Gender
       - Age
-
+## Thrust | Reactor | Drive
+  - [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
+  - Trust to Wieght Ratio (TWR)
+  - Fuel Types
 
 ## Code Architecture
 
 ### Ship Builder
+- Native Map as a master level ("claim") object
+  ```javascript
+  myClaim = new Map();
 
+  ```
+  - stores all Asteroid object data,
+  - will keep objectes ordered by insertion
 - Global Object Manager Class
   - Grid Class (Ship Build Area)
     - Berth Size (Grid size)
