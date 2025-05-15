@@ -8,16 +8,22 @@
 - reactor ignition pellets
 - thruster DT Fuel
 - Ship Design and Upgrades
+  - classes
+    - ultra light
+    - light
+    - heavy
+    - ultra heavy
 - Minimum ship modules
-  - hull
-  - small (5x5)
-  - medium (11x11)
-  - large (19x15)
+  - hull - 0.5m external parameter 
+    - 
+    - small (4x4)
+    - medium (10x10)
+    - large (14x18)
   - ship control / navigation
   - reactor / thruster
-  - small (3x5) (- 3x2 hull)
-  - medium (5x10) (- 5x4 hull)
-  - large (10x20) (- 10x12 hull)
+    - small (3x5) - (3x2 exterior area)
+    - medium (5x10) - (5x4 exterior area)
+    - large (10x20) - (10x12 exterior area)
   - life support
   - air per crew member
   - nutrition per crew member
@@ -38,6 +44,7 @@
           - special rates apply for SSAA research claims (+++) & toll contracts (+-)
   - Asteroid class
     - mineral composition determined by rarity
+    - 
     - metal determined by size & rarity
     - Ices by rarity size
     - [shape generation](../02%20TerrianGen/readme.md)
@@ -53,11 +60,12 @@
       - INPUT: bounding box information -> generate astroid from line primitives
       - wrapping algorithm (number of triangles determined how?)
     - Astroid Composition
-      - mineral composition determined by rarity
-      - metal determined by size & rarity
-      - Ices by rarity size 
+      - [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
+      ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
       - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
-      - Spacing
+        - mineral composition determined by rarity
+        - metal determined by size & rarity
+        - Ices by rarity size 
   - Mechanics
     - Background
       - Regolith
@@ -98,12 +106,21 @@
       - Origin
       - Gender
       - Age
-
+## Thrust | Reactor | Drive
+  - [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
+  - Trust to Wieght Ratio (TWR)
+  - Fuel Types
 
 ## Code Architecture
 
 ### Ship Builder
+- Native Map as a master level ("claim") object
+  ```javascript
+  myClaim = new Map();
 
+  ```
+  - stores all Asteroid object data,
+  - will keep objectes ordered by insertion
 - Global Object Manager Class
   - Grid Class (Ship Build Area)
     - Berth Size (Grid size)
