@@ -5,8 +5,7 @@
 
 - Ship Systems Management
 - cargo management
-- reactor ignition pellets
-- thruster DT Fuel
+
 - Ship Design and Upgrades
   - classes
     - ultra light
@@ -109,6 +108,8 @@
   - [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
   - Trust to Wieght Ratio (TWR)
   - Fuel Types
+    - reactor ignition pellets
+    - thruster DT Fuel
 
 ## Code Architecture
 
@@ -127,8 +128,14 @@
   - Block Class (Ship components)
   - Player Class (Character's Ship)
   -
-  - Asteroid class
+  - Asteroid class (new Map)
+    - Types: CHONDRITE , STONEY , METALIC
     - embedded Block class
+    - embedded Material Class
+      -  Chemical Speices
+      -  Generated depth
+      -  Rarity
+      -  
     - shape generation from SVG?
     - vertex shader
       - INPUT: rectangle info as line primitives
@@ -137,11 +144,10 @@
           - right:(xPos + w, yPos),(xPos + w, yPos + h)
           - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
           - left: (xPos, yPos + h),(xPos, yPos)
-    - geometry shader
-      - INPUT: bounding box information -> generate astroid from line primitives
-        - wrapping algorithm (number of triangles determined how?)
-    - compute shader
-      - INPUT: astroid object - generate composition
+    - vertex shader (Rock Textures)
+      - Generate astroid texture from mesh data (generate 3d mesh from normal map)
+    - fragment shader (Render Mineral Compostion)
+      - render color based on material
         - mineral composition determined by rarity
         - metal determined by size & rarity
         - Ices by rarity size
