@@ -15,7 +15,6 @@
     - ultra heavy
 - Minimum ship modules
   - hull - 0.5m external parameter 
-    - 
     - small (4x4)
     - medium (10x10)
     - large (14x18)
