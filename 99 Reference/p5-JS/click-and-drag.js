@@ -1,6 +1,8 @@
 // Sourced https://editor.p5js.org/BarneyCodes/sketches/H7M_tt4eK
 // Author: BarneyCodes https://editor.p5js.org/BarneyCodes/sketches
-
+// Descriptio: p5.js implementation of basic Click & Drag controls
+//
+ 
 const points = [];
 let dragPoint = null;
 

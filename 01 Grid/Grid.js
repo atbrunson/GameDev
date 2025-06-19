@@ -1,3 +1,11 @@
+/**
+ * TODO: 
+ * - replace all p5.js references with HTML Canvas Primitives
+ * - replace mode strings with symbols
+ * 
+ */
+
+
 class Grid {
   constructor(rows = 2, cols = 2, w = width, h = height, mode = "TOP_LEFT") {
 
@@ -25,7 +33,6 @@ class Grid {
     // this.update()
 
   }; // end constructor
-
 
   align() {
     switch (this.mode) { // Defines the alignment of the grid
@@ -121,8 +128,7 @@ class Grid {
       );
     }; // end resize
 
-    // TODO
-    if (this.lines) { // draws the grid lines 
+      if (this.lines) { // draws the grid lines 
 
       for (let r = 0; r < this.rows - 1; r++) { //draws rows
         line(
