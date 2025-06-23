@@ -2,7 +2,7 @@
 
 ## Astroid Belt Game Ideas
 
-- Ship Systems Management
+### Ship Systems Management
 - cargo management
 - Ship Design and Upgrades
   - Vessel Classes
@@ -10,25 +10,26 @@
     - light
     - heavy
     - ultra heavy
-- Minimum ship modules
+- Minimum ship [modules](#component)
   - hull - 0.5m external parameter 
     - small (4x4)
     - medium (10x10)
     - large (14x18)
   - ship control / navigation
-  - reactor / thruster
+  - reactor / thruster ( [detials](#thrust--reactor--drive) )
     - small (3x5) - (3x2 exterior area)
     - medium (5x10) - (5x4 exterior area)
     - large (10x20) - (10x12 exterior area)
-  - life support
-  - air per crew member
-  - nutrition per crew member
-  - cooling per crew member
-- Upgrade modules
+  - life support [create](#life-support)
+    - air per crew member
+    - nutrition per crew member
+    - cooling per crew member
+- Upgrade modules (functional)
   - ice melter
   - gas condenser / separator
   - liquid / gas storage
-- Mining System
+
+### Mining System
   - Level Planning
     - Open Reseach Expoloration Contracts
       - Trade Union approved prospecting for SSAA (Solar System Astronomical Assciation)
@@ -79,16 +80,18 @@
         - Crew Inventory
       - Rare
         - Crew Inventory
-- Belt Map
-  - Trip Computer
-    - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
-    - Select Astroid
-    - Select Crew
-      - Crew Stats
-      - O_2_ rate
-    - Select Returning Delta Mass
-      - Mass and Energy Balances
-- Crew System
+
+### Belt Map
+Trip Computer
+  - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
+  - Select Astroid
+  - Select Crew
+    - Crew Stats
+    - O_2_ rate
+  - Select Returning Delta Mass
+    - Mass and Energy Balances
+
+### Crew System
   - Player Creation (zeroth crew member)
   - Bio-stats
     - Mass
@@ -100,14 +103,15 @@
       - Gender
       - Age
 
-## Thrust | Reactor | Drive
-  - [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
-  - Trust to Wieght Ratio (TWR)
-  - Fuel Types
-    - reactor ignition pellets
-    - thruster DT Fuel
+### Thrust | Reactor | Drive
+- [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
+- Trust to Wieght Ratio (TWR)
+- Fuel Types
+  - reactor ignition pellets
+  - thruster DT Fuel
 
 ## Code Architecture
+
 ### Notes
 Native JS Map as a master level ("claim") object
   ```javascript
@@ -116,56 +120,75 @@ Native JS Map as a master level ("claim") object
   - stores all Asteroid object data,
   - will keep objectes ordered by insertion
 
-Object Classes
-  - Class `Grid' (Ship, Station, Berth)
-    - Grid Type `dymanic` (eg Ship)
-    - Grid Type `static` (eg Station, Berth)
-    - Berth Size (Grid size)
-  - Grid Class (Available Component Area)
-  - Class `Component` (eg Grid Component or module)
-    - Component Subclass:
-      - `Structure` (Contains grid enviroment/atmosphere)
-        - Type `hull`
-        - Type `Bulkhead`
-        - Type `door`
-      - `Funtional` (any functional component)
-        - Type `Operational` (adds ship or staition systems)
-        - Type `Thruster` (moves grid)
-        - Type `Production` (makes/moves/converts materials)
-  - Class `Player` (Character's Ship)
-    - Embedded Class `Grid` with type `dynamic`
-  - Class `Astroid`
-    - Types `CHONDRITE , STONEY , METALIC`
-    - embedded Material Class
-      -  Chemical Speices
-      -  Generated depth
-      -  Rarity
-    - ~~shape generation from SVG?~~
-    - vertex shader (Rock Textures)
-      - Generate astroid texture from mesh data (generate 3d mesh from normal map)
-    - fragment shader (Render Mineral Compostion)
-      - render color based on material
-        - mineral composition determined by rarity
-        - metal determined by size & rarity
-        - Ices by rarity size
-    - ~~embedded Block class~~
-  - Astroid Composition
-    - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
-  - Belt Map
-    - Astroid Distribution
-    - Trip Computer
-      - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
-      - Select Asteroid
-      - Select Crew
-        - Crew Stats
-          - O_2_ rate
-      - Select Returning Delta Mass
-  - Mass and Energy Balances
+### Object Classes
+
+#### Grid
+```javascript
+  Class Grid //Ship, Station, or Berth
+  ```
+- Grid Type `dymanic` (eg Ship)
+- Grid Type `static` (eg Station, Berth)
+- Berth Size (Grid size)
+  
+#### Component
+```javascript
+Class Component //Moveable Grid Module
+```
+##### Component Subclasses
+```javascript
+Class Structure //Insulates Grid Enviroment
+```
+`Type HULL , BULK , DOOR`
+
+```javascript
+Class Funtional (any functional component)
+```
+
+- Type `Operational` (adds ship or staition systems)
+- Type `Thruster` (moves grid)
+- Type `Production` (makes/moves/converts materials)
+  
+#### Player
+``` javascript
+Class Player //Character's Ship
+```
+- ??Embedded Class `Grid` with type `dynamic`??
+
+#### Astroid
+```javascript
+Class Astroid()
+
+Types ``CHONDRITE , STONEY , METALIC``
+```
+  - embedded Material Class
+    -  Chemical Speices
+    -  Generated depth
+    -  Rarity
+  - ~~shape generation from SVG?~~
+  - vertex shader (Rock Textures)
+    - Generate astroid texture from mesh data (generate 3d mesh from normal map)
+  - fragment shader (Render Mineral Compostion)
+    - render color based on material
+      - mineral composition determined by rarity
+      - metal determined by size & rarity
+      - Ices by rarity size
+  - ~~embedded Block class~~
+- Astroid Composition
+  - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
+- Belt Map
+  - Astroid Distribution
+  - Trip Computer
+    - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
+    - Select Asteroid
+    - Select Crew
+      - Crew Stats
+        - O_2_ rate
+    - Select Returning Delta Mass
+- Mass and Energy Balances
+
 ### Unstarted
 
 - Grid Editor
-
-
 
 - Class `Ship`
 
@@ -177,5 +200,9 @@ Object Classes
     - Material Phases
 
 ### Grid Editor
-- 
+- Drag & Drop
+- Component Validation
+  - size
+  - orintation
+  - 
 
