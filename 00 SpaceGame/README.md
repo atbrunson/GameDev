@@ -109,6 +109,9 @@ Trip Computer
 - Fuel Types
   - reactor ignition pellets
   - thruster DT Fuel
+- Fagnetic Field Visiualizaiton
+  - Visualization included with [matter-attractors](https://github.com/liabru/matter-attractors) plugin?
+  - [Graph](https://www.geogebra.org/m/up3x66fz)
 
 ## Code Architecture
 
