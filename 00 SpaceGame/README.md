@@ -1,8 +1,8 @@
 # Space Game
 
-## Astroid Belt Game Ideas
+## Game Mechanics
 
-### Ship Systems Management
+### Ship Systems & Management
 - cargo management
 - Ship Design and Upgrades
   - Vessel Classes
@@ -24,10 +24,20 @@
     - air per crew member
     - nutrition per crew member
     - cooling per crew member
-- Upgrade modules (functional)
+- Production Modules (functional)
   - ice melter
   - gas condenser / separator
   - liquid / gas storage
+
+### Thrust | Reactor Systems 
+- [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
+- Trust to Wieght Ratio (TWR)
+- Fuel Types
+  - reactor ignition pellets
+  - thruster DT Fuel
+- Fagnetic Field Visiualizaiton
+  - Visualization included with [matter-attractors](https://github.com/liabru/matter-attractors) plugin?
+  - [Graph](https://www.geogebra.org/m/up3x66fz)
 
 ### Mining System
   - Level Planning
@@ -81,7 +91,7 @@
       - Rare
         - Crew Inventory
 
-### Belt Map
+### Belt Map System
 Trip Computer
   - Select Acceleration (set the trip length) -> reactor efficiency (fuel propelled at some % of light) -> calculation of thrust
   - Select Astroid
@@ -103,48 +113,70 @@ Trip Computer
       - Gender
       - Age
 
-### Thrust | Reactor | Drive
-- [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
-- Trust to Wieght Ratio (TWR)
-- Fuel Types
-  - reactor ignition pellets
-  - thruster DT Fuel
-- Fagnetic Field Visiualizaiton
-  - Visualization included with [matter-attractors](https://github.com/liabru/matter-attractors) plugin?
-  - [Graph](https://www.geogebra.org/m/up3x66fz)
-
 ## Code Architecture
+World -> Claim -> Grid
 
-### Notes
+### Object Classes
+
+#### Claim
 Native JS Map as a master level ("claim") object
   ```javascript
   let myClaim = new Map();
   ```
-  - stores all Asteroid object data,
-  - will keep objectes ordered by insertion
-
-### Object Classes
+  - will keep objectes ordered by insertion (help with z fighting?)
+  - has position and area within World
+  - contains all grids within it's bounds
+  - Player may exploit resources within it's bounds
 
 #### Grid
+>Grids allow the player to build ship and stations in game.
+
 ```javascript
   Class Grid //Ship, Station, or Berth
-  ```
-- Grid Type `dymanic` (eg Ship)
-- Grid Type `static` (eg Station, Berth)
-- Berth Size (Grid size)
-  
-#### Component
-```javascript
-Class Component //Moveable Grid Module
 ```
-##### Component Subclasses
+`Grid` Type `STATIC` (eg Station, Berth)
+
+Must be must be in a players `Claim` to generate or expand
+> The player may lease or rent a berth in game to use and build upon. Mechanically the *berth* is a static grid within the larger static grid the station is built upon. 
+
+Grid Type `DYNAMIC` (eg Ship)
+    
+Must be in a static grid to generate or expand
+>A player's ship in game would be dynamic grid built within an exsisting static grid. That is the stationary grid must have enough unoccupied area for the intended dynamic grid.
+
+##### Grid Cell
+...The units of Grids
+- Temp ...used for energy balace
+- Pressure ...including partial pressures
+- Materials ...vapor, liquid0, liquid1, solid0, solid1 
+  - Equation of state determines the phase of each material
+  - ...Dusts and Gases treated the same? (dusts heated to combine, gasses cooled to combine)
+  - Create detailed [Materials](#materials)
+- Occupancy ...type of block if occupied
+- 
+
+##### Grid MODE
+- edit
+  - directly edit inside a stationary grid
+- design
+  - Load / Save / Share Blueprints
+  - 
+
+#### Grid Blocks
+> Group of moveable, connectable parts on the grid
+
+##### Modules & Components
+```javascript
+Class Module // functional block 
+Class Component //strctural block
+```
 ```javascript
 Class Structure //Insulates Grid Enviroment
 ```
-`Type HULL , BULK , DOOR`
+Type `HULL` , `BULK` , `DOOR`
 
 ```javascript
-Class Funtional (any functional component)
+Class Funtional //(any functional component)
 ```
 
 - Type `Operational` (adds ship or staition systems)
@@ -152,10 +184,13 @@ Class Funtional (any functional component)
 - Type `Production` (makes/moves/converts materials)
   
 #### Player
+> Controlable Object in the game.
+
 ``` javascript
 Class Player //Character's Ship
 ```
-- ??Embedded Class `Grid` with type `dynamic`??
+
+> Player -> `Grid` with type `dynamic`??
 
 #### Astroid
 ```javascript
@@ -163,7 +198,7 @@ Class Astroid()
 
 Types ``CHONDRITE , STONEY , METALIC``
 ```
-  - embedded Material Class
+  - embedded Material Classs
     -  Chemical Speices
     -  Generated depth
     -  Rarity
@@ -189,23 +224,16 @@ Types ``CHONDRITE , STONEY , METALIC``
     - Select Returning Delta Mass
 - Mass and Energy Balances
 
-### Unstarted
-
-- Grid Editor
-
-- Class `Ship`
-
-- Class `Claim`
-
-- Class `Material`
-    - Material Types
-    - Material Compositions
-    - Material Phases
-
 ### Grid Editor
 - Drag & Drop
 - Component Validation
   - size
   - orintation
-  - 
 
+### Materials
+- Details on Material phase calculations & equation of state
+  - ..on Material containing mixtures
+  - ..on each chemical species
+  - ..on partical size
+- Details on rendering calculations and shader inputs
+  - Each Material will be proceduraly rendered
