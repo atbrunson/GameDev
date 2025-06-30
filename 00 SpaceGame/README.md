@@ -132,8 +132,32 @@ Native JS Map as a master level ("claim") object
 >Grids allow the player to build ship and stations in game.
 
 ```javascript
-  Class Grid //Ship, Station, or Berth
+class Grid {
+  constructor(rows = 2, cols = 2, w = width, h = height, mode = "TOP_LEFT") {
+
+    this.boarder = true;
+    this.lines = true;
+    this.stroke = 0;
+    this.strokeWeight = 1;
+    this.xOffset = 0;
+    this.yOffset = 0;
+
+    this.w = constrain(w, 4, width - this.xOffset - 2 * this.strokeWeight);
+    this.h = constrain(h, 4, height - this.yOffset - 2 * this.strokeWeight);
+
+    this.rows = rows;
+
+    this.cols = cols;
+
+    this.mode = mode // Grid alignment property
+    this.size = constrain(this.h / this.rows, 2)
+    this.cells = [] // create empty cells array
+
+    this.align()
+    this.build()
+    this.display()
 ```
+
 `Grid` Type `STATIC` (eg Station, Berth)
 
 Must be must be in a players `Claim` to generate or expand
@@ -142,7 +166,7 @@ Must be must be in a players `Claim` to generate or expand
 Grid Type `DYNAMIC` (eg Ship)
     
 Must be in a static grid to generate or expand
->A player's ship in game would be dynamic grid built within an exsisting static grid. That is the stationary grid must have enough unoccupied area for the intended dynamic grid.
+> A player's ship in game would be dynamic grid built within an exsisting static grid. That is the stationary grid must have enough unoccupied area for the intended dynamic grid.
 
 ##### Grid Cell
 ...The units of Grids
@@ -155,33 +179,45 @@ Must be in a static grid to generate or expand
 - Occupancy ...type of block if occupied
 - 
 
-##### Grid MODE
+##### Grid Editor MODE
 - edit
   - directly edit inside a stationary grid
 - design
   - Load / Save / Share Blueprints
   - 
 
-#### Grid Blocks
-> Group of moveable, connectable parts on the grid
+#### Grid Tiles
+> Moveable, connectable parts constructed on a grid
+
+```javascript
+class Tile {
+  constructor (myGrid, )
+  this.size = myGrid.unit
+  this.ports = [...{}] // Connects to matching sockets YELLOW, RED, GREEN, BLUE 
+  this.sockets = [...{}] // Connects to matching ports yellow, red, green, blue
+}
+myPart.size = myGrid.unit // Must have dimentions in grid units ( 2 x 3 ect.)
+
+```
 
 ##### Modules & Components
 ```javascript
-Class Module // functional block 
-Class Component //strctural block
+class Module {} // functional block 
+
+//Module Types
+const OPERATIONAL = symbol("Operational Grid Block") // adds ship or staition systems
+const THRUSTER = symbol("Thruster Grid Block") // applys force to a dynamic grid
+const PRODUCTION = symbol("Production Grid Block") // makes, moves, converts and/or stores materials
 ```
 ```javascript
-Class Structure //Insulates Grid Enviroment
-```
-Type `HULL` , `BULK` , `DOOR`
+class Component {} //Insulates & Isolates the Enviroment on a Grid
 
-```javascript
-Class Funtional //(any functional component)
+//Component Types
+const HULL = symbol("Hull Grid Block")
+const BULK = symbol("Bulkhead Grid Block")
+const DOOR = symbol("Door Grid lock")
 ```
 
-- Type `Operational` (adds ship or staition systems)
-- Type `Thruster` (moves grid)
-- Type `Production` (makes/moves/converts materials)
   
 #### Player
 > Controlable Object in the game.
