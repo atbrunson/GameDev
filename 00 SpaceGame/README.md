@@ -1,4 +1,22 @@
 # Space Game
+## Lore
+### Factions
+United Planetary Organization / Solar Congress (Terrian Control) 
+UN / NATO (Terrian)
+
+
+Jovian People's Republic
+Main Belt Trade:
+- MBTC
+  - Coopertive
+  - Consolidation
+- MBTO
+  - Organization
+- MBTA
+  - Alliance 
+  - Association
+- MBTP
+  - Partnership
 
 ## Game Mechanics
 
@@ -16,7 +34,7 @@
     - medium (10x10)
     - large (14x18)
   - ship control / navigation
-  - reactor / thruster ( [detials](#thrust--reactor--drive) )
+  - reactor / thruster ( [detials](#thruster) )
     - small (3x5) - (3x2 exterior area)
     - medium (5x10) - (5x4 exterior area)
     - large (10x20) - (10x12 exterior area)
@@ -29,15 +47,32 @@
   - gas condenser / separator
   - liquid / gas storage
 
-### Thrust | Reactor Systems 
-- [Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
+### Thrust | Reactor Systems
+
+#### Thruster
+[Epstien Drive Calculations](https://toughsf.blogspot.com/2019/10/the-expanses-epstein-drive.html)
 - Trust to Wieght Ratio (TWR)
-- Fuel Types
+- Propelent Type
+  - Steam
+  - Pressure Regulation Gas
+  - Production Offgas
+
+#### Reactor
+Fuel Types
   - reactor ignition pellets
   - thruster DT Fuel
-- Fagnetic Field Visiualizaiton
+
+Magnetic Field Visiualizaiton
   - Visualization included with [matter-attractors](https://github.com/liabru/matter-attractors) plugin?
   - [Graph](https://www.geogebra.org/m/up3x66fz)
+
+### Menu System
+
+#### Data Pad
+Desktop / App Launcher
+- Moveable Windows
+- Data search / Wiki
+- Sticky notes 
 
 ### Mining System
   - Level Planning
@@ -113,8 +148,50 @@ Trip Computer
       - Gender
       - Age
 
+### Crafting System
+
+#### Grid Tile Recipes
+
+##### Component Recipes
+> Player "READ ONLY" tiles in game
+- Hulls
+- Bulkheads
+- Airlock Gates & Doors
+- Living / Comfort / Rest Areas
+- Phyiscal Storage
+
+##### Module Recipes
+
+Ship Systems Recipes
+  - Navigation
+  - Communication
+  - Life Support
+  - Propulsion
+
+Production Systems Recipes
+  - Energy Generation
+  - Mining Equipment
+  - Material Transport
+  - Material Reactors
+  - Material Smelters
+  - 
+
+### Materials & Resource System
+
+#### Material Production Modes
+
+##### Catalytic Reaction
+> Available mid game with basic energy capture/production methods
+
+Methane Reforming
+Haber Process / Ammonia Production
+
+##### Direct Fusion Synthesis
+> Available late game after ending energy scarsity 
+
+
 ## Code Architecture
-World -> Claim -> Grid
+World -> Claim -> Grid -> Subgrid
 
 ### Object Classes
 
@@ -199,8 +276,15 @@ class Tile {
 myPart.size = myGrid.unit // Must have dimentions in grid units ( 2 x 3 ect.)
 
 ```
+Player Interactions
+- Move
+- Place
+- Remove
+- Rotate
 
-##### Modules & Components
+
+##### Modules
+> Player EDIT Access in game
 ```javascript
 class Module {} // functional block 
 
@@ -209,6 +293,10 @@ const OPERATIONAL = symbol("Operational Grid Block") // adds ship or staition sy
 const THRUSTER = symbol("Thruster Grid Block") // applys force to a dynamic grid
 const PRODUCTION = symbol("Production Grid Block") // makes, moves, converts and/or stores materials
 ```
+
+
+ ##### Components
+ > Player READ_ONLY access in game
 ```javascript
 class Component {} //Insulates & Isolates the Enviroment on a Grid
 
