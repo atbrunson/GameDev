@@ -7,16 +7,25 @@ UN / NATO (Terrian)
 
 Jovian People's Republic
 Main Belt Trade:
+- MBTA
+  - Alliance
+  - ~~Advisory~~
+  - ~~Association~~
+- MBTB
+  - Board
 - MBTC
   - Coopertive
-  - Consolidation
+  - Combine
+  - ~~Consolidation~~
+  - ~~Committee~~
+- MBTE
+  - Establishment
+  - ~~Endowment~~
 - MBTO
   - Organization
-- MBTA
-  - Alliance 
-  - Association
 - MBTP
-  - Partnership
+  - Panel
+  - ~~Partnership~~
 
 ## Game Mechanics
 
@@ -68,6 +77,10 @@ Magnetic Field Visiualizaiton
 
 ### Menu System
 
+#### [React hooks and matter.js](https://www.paulie.dev/posts/2020/08/react-hooks-and-matter-js/)
+
+Using React hooks as a wrapper around the matter engine
+
 #### Data Pad
 Desktop / App Launcher
 - Moveable Windows
@@ -75,56 +88,57 @@ Desktop / App Launcher
 - Sticky notes 
 
 ### Mining System
-  - Level Planning
-    - Open Reseach Expoloration Contracts
-      - Trade Union approved prospecting for SSAA (Solar System Astronomical Assciation)
-      - Estbilshed Mining Claims MBTU (Main Belt Trade Union)
-        - Submitt plans for additional minerals
-        - Small one time deposits <= 100kg (bulk material) can be approved _ex post facto_
-          - trade union will apply essential material rates (++) to open orders first
-          - standard rates (+) apply after open orders are filled
-          - special rates apply for SSAA research claims (+++) & toll contracts (+-)
-  - Asteroid class
-    - mineral composition determined by rarity
-    - 
-    - metal determined by size & rarity
-    - Ices by rarity size
-    - [shape generation](../02%20TerrianGen/readme.md)
-      - SVG / Path encoding & decoding for state saves 
-    - vertex shader
-      - INPUT: rectangle info as line primitives
-        - xPos, yPos, w, h
-        - top: (xPos,yPos),(xPos + w, yPos)
-        - right:(xPos + w, yPos),(xPos + w, yPos + h)
-        - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
-        - left: (xPos, yPos + h),(xPos, yPos)
-    - geometry shader
-      - INPUT: bounding box information -> generate astroid from line primitives
-      - wrapping algorithm (number of triangles determined how?)
-    - Astroid Composition
-      - [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
-      ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
-      - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
-        - mineral composition determined by rarity
-        - metal determined by size & rarity
-        - Ices by rarity size 
-  - Mining Mechanics
-    - Background
-      - Regolith
-        - Crabs // Flys // Swarms move to foreground
-      - Rock
-        - Drill Crabs process into Regolith
-      - Metal / Dense Rock
-        - Laser Crabs process into Regolith
-      - Rare
-        - Crab Carriers remove to ship
-    - Foreground
-      - Regolith
-        - Crew Inventory
-      - Rock
-        - Crew Inventory
-      - Rare
-        - Crew Inventory
+#### Mining Mechanics
+  - Background
+    - Regolith
+      - Crabs // Flys // Swarms move to foreground
+    - Rock
+      - Drill Crabs process into Regolith
+    - Metal / Dense Rock
+      - Laser Crabs process into Regolith
+    - Rare
+      - Crab Carriers remove to ship
+  - Foreground
+    - Regolith
+      - Crew Inventory
+    - Rock
+      - Crew Inventory
+    - Rare
+      - Crew Inventory
+
+#### Mining Claim
+  - Open Reseach Expoloration Contracts
+    - Trade Union approved prospecting for SSAA (Solar System Astronomical Association)
+    - Estbilshed Mining Claims MBTU (Main Belt Trade Union)
+      - Submitt plans for additional minerals
+      - Small one time deposits <= 100kg (bulk material) can be approved _ex post facto_
+        - trade union will apply essential material rates (++) to open orders first
+        - standard rates (+) apply after open orders are filled
+        - special rates apply for SSAA research claims (+++) & toll contracts (+-)
+
+##### Asteroid class
+  - mineral composition determined by rarity
+  - metal determined by size & rarity
+  - Ices by rarity size
+  - [shape generation](../02%20TerrianGen/readme.md)
+    - SVG / Path encoding & decoding for state saves 
+  - vertex shader
+    - INPUT: rectangle info as line primitives
+      - xPos, yPos, w, h
+      - top: (xPos,yPos),(xPos + w, yPos)
+      - right:(xPos + w, yPos),(xPos + w, yPos + h)
+      - bottom: (xPos + w, yPos + h),(xPos, yPos + h)
+      - left: (xPos, yPos + h),(xPos, yPos)
+  - geometry shader
+    - INPUT: bounding box information -> generate astroid from line primitives
+    - wrapping algorithm (number of triangles determined how?)
+  - Astroid Composition
+    - [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
+    ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
+    - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
+      - mineral composition determined by rarity
+      - metal determined by size & rarity
+      - Ices by rarity size 
 
 ### Belt Map System
 Trip Computer
@@ -149,6 +163,35 @@ Trip Computer
       - Age
 
 ### Crafting System
+
+#### Grid Snap
+
+##### Snap Bodies to Grid in Matter.js
+
+In Matter.js, snapping bodies to a grid or specific positions can enhance gameplay and user interaction. This is particularly useful for drag-and-drop mechanics or aligning objects in a game.
+
+Methods to Snap Bodies
+Using Positioning Functions
+You can set the position of a body directly using the Matter.Body.setPosition method. This allows you to snap a body to specific coordinates.
+Grid Snapping Logic
+Implement a grid system by rounding the body's position to the nearest grid point. For example, if using a 16x16 grid, you can calculate the nearest grid position as follows:
+javascript
+
+```javascript
+function snapToGrid(body) {
+    const gridSize = 16;
+    const x = Math.round(body.position.x / gridSize) * gridSize;
+    const y = Math.round(body.position.y / gridSize) * gridSize;
+    Matter.Body.setPosition(body, { x: x, y: y });
+}
+```
+Adjusting Anchor Points
+To ensure that bodies snap correctly, you may need to adjust their anchor points. This can be done by modifying the body's properties or using the setCentre method to change the center of mass.
+
+Common Issues
+Non-Snapping Bodies: If some bodies do not snap as expected, check their collision settings and ensure they are not overlapping with other bodies.
+Anchor Point Misalignment: If the visual representation does not match the physics body, adjust the anchor point or the body's vertices.
+By implementing these methods, you can effectively manage how bodies snap to desired positions in your Matter.js projects.
 
 #### Grid Tile Recipes
 
