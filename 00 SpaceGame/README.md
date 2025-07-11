@@ -1,31 +1,40 @@
 # Space Game
 ## Lore
 ### Factions
-United Planetary Organization / Solar Congress (Terrian Control) 
-UN / NATO (Terrian)
-
-
-Jovian People's Republic
-Main Belt Trade:
-- MBTA
+#### United Planetary Organization
+##### Solar Congress
+Terrian Majority w/ Martian Minority
+Sparse participation from Jovian / Main Belt 
+#### UN / UNTA (Terrian)
+#### Jovian People's Republic
+> Indepentent but closly relies on Main Belt Trade
+> Birth Place and Waywared home of all belters
+#### Main Belt Trade:
+> Independent from but closely allied with the Jovian's
+> Ensures the needs of the Main Belt Stations are met as judiciously & equitably as possible
+> Defines / Executes Effort based compenstaion labor laws
+> Manages / Executes all import / export transportation in Main Belt Space 
+- MBTA (EMBEE-TEE-AY)
   - Alliance
   - ~~Advisory~~
   - ~~Association~~
-- MBTB
+- MBTB (EMBEE-TEEBEE)
   - Board
-- MBTC
+- MBTC (EMBEE-TEESEE)
   - Coopertive
   - Combine
   - ~~Consolidation~~
   - ~~Committee~~
-- MBTE
+- MBTE (EMBEE-TEE-EE)
   - Establishment
   - ~~Endowment~~
-- MBTO
+- MBTO (EMBEE-TEE-OW)
   - Organization
-- MBTP
+- MBTP (EMBEE-TEEPEE)
   - Panel
   - ~~Partnership~~
+- MBTU (EMBEE-TEE-EW)
+  - Union
 
 ## Game Mechanics
 
@@ -76,16 +85,19 @@ Magnetic Field Visiualizaiton
   - [Graph](https://www.geogebra.org/m/up3x66fz)
 
 ### Menu System
+#### Heads Up Diplay
+Display
+- Grid Mass
+- Time & Date
 
-#### [React hooks and matter.js](https://www.paulie.dev/posts/2020/08/react-hooks-and-matter-js/)
+Controls
+- Time Scale
 
-Using React hooks as a wrapper around the matter engine
-
-#### Data Pad
+#### Hand Terminal Interface
 Desktop / App Launcher
 - Moveable Windows
 - Data search / Wiki
-- Sticky notes 
+- Sticky notes
 
 ### Mining System
 #### Mining Mechanics
@@ -106,15 +118,46 @@ Desktop / App Launcher
     - Rare
       - Crew Inventory
 
-#### Mining Claim
-  - Open Reseach Expoloration Contracts
-    - Trade Union approved prospecting for SSAA (Solar System Astronomical Association)
-    - Estbilshed Mining Claims MBTU (Main Belt Trade Union)
-      - Submitt plans for additional minerals
-      - Small one time deposits <= 100kg (bulk material) can be approved _ex post facto_
-        - trade union will apply essential material rates (++) to open orders first
-        - standard rates (+) apply after open orders are filled
-        - special rates apply for SSAA research claims (+++) & toll contracts (+-)
+#### Claim System
+> The Trade Union Establishes and Governs ALL Mining Claims within the Main Belt
+
+
+Open Reseach / Expoloration Contracts
+- Trade Union approved prospecting for new locations of desired materials. 
+Estbilshed Mining Claims
+  - Submit plans for additional minerals after exploration
+    - Small one time deposits <= 1000kg (bulk material) can be approved _ex post facto_
+  - Trade Union Rates Application
+    - Essential material rates (++) will first be applied to fill open orders for essential materials
+    - Standard material rates (+) will then be applied to open orders standard for standard materials
+    - Surplus material rates (-) are applied if there are no open material Orders
+    - Special rates apply for SSAA research claims (+++) & toll contracts (+-)
+    > Volumes and Rates vary wildly on special orders
+
+##### Material Orders
+SSAA Research Contracts
+> May allow for extentions to volumes on _ex post facto_ deposits for discovered materials during the contract.
+- Subject to prenogotiated rates and volumes
+  - Typcially small volumes of rare & hard to mine materials at very high rates
+Exploration Contracts
+- Unexplored, Derelect, and|or forfited claims
+   
+##### Labor & Equipment Orders
+Toll Contracts 
+- Inactive Claim Exploration
+> Exploring and Prospecting on behalf of Claim Holder before Inactive Status Expires
+Collection Contracts
+- Recovering loss value from forfited claims
+> Minimum value with a small percentage of surplus value reclaimed
+- Very High Reputation Needed
+- Completion increases Trade Union reputation & increases likleyhood of future Collection Contracts
+Legitiment Salvage Contracts
+
+##### Combine Orders
+Toll Manufacturing
+- Producing Refined Materials to T
+
+
 
 ##### Asteroid class
   - mineral composition determined by rarity
@@ -235,6 +278,21 @@ Haber Process / Ammonia Production
 
 ## Code Architecture
 World -> Claim -> Grid -> Subgrid
+### Dependancies
+> List of libraries included
+#### matter.js
+#### react.js
+
+
+
+
+#### React & Matter
+
+Using React hooks as a wrapper around the matter engine
+- [React hooks and matter.js](https://www.paulie.dev/posts/2020/08/react-hooks-and-matter-js/)
+- [How to use Matter.js in a React functional component](https://www.fabiofranchino.com/blog/how-to-use-matter-js-in-react-functional-component/) 
+
+
 
 ### Object Classes
 
