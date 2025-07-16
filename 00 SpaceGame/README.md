@@ -329,11 +329,21 @@ class Grid {
 
     this.mode = mode // Grid alignment property
     this.size = constrain(this.h / this.rows, 2)
-    this.cells = [] // create empty cells array
+    this.cells = let cells = Array.from({length: rows * cols }, (null, i) => null) // create a null array with length rows * cols
 
     this.align()
     this.build()
     this.display()
+
+  }
+
+  cell(row, col){
+
+    let entry = row * col
+
+    return this.cells[]
+  }
+
 ```
 
 `Grid` Type `STATIC` (eg Station, Berth)
@@ -347,15 +357,16 @@ Must be in a static grid to generate or expand
 > A player's ship in game would be dynamic grid built within an exsisting static grid. That is the stationary grid must have enough unoccupied area for the intended dynamic grid.
 
 ##### Grid Cell
-...The units of Grids
+> The unit of measure for a Grid
 - Temp ...used for energy balace
 - Pressure ...including partial pressures
 - Materials ...vapor, liquid0, liquid1, solid0, solid1 
   - Equation of state determines the phase of each material
   - ...Dusts and Gases treated the same? (dusts heated to combine, gasses cooled to combine)
   - Create detailed [Materials](#materials)
-- Occupancy ...type of block if occupied
-- 
+- Occupancy ...type of object if occupied
+- Active ...if the cell is editable in game
+  - isAcitve() method needed
 
 ##### Grid Editor MODE
 - edit
@@ -364,17 +375,29 @@ Must be in a static grid to generate or expand
   - Load / Save / Share Blueprints
   - 
 
-#### Grid Tiles
+#### Grid Comp
 > Moveable, connectable parts constructed on a grid
 
 ```javascript
-class Tile {
-  constructor (myGrid, )
-  this.size = myGrid.unit
-  this.ports = [...{}] // Connects to matching sockets YELLOW, RED, GREEN, BLUE 
-  this.sockets = [...{}] // Connects to matching ports yellow, red, green, blue
+class Comp {
+  constructor (myGrid, ...options)
+  this.size = {[],[]};      // Dimentions in Grid Cells ( 2 x 3 ect.)
+
+  this.pos = Array.from({length: 4}, (v, i) => i)   // Initializes an array with [0, 1, 2, 3]
+    // One of the four walls in each position
+    // 0: TOP
+    // 1: RIGHT
+    // 2: BOTTOM
+    // 3: LEFT
+
+  this.ports = [...{}];     // Connects to matching sockets YELLOW, RED, GREEN, BLUE 
+  this.sockets = [...{}];   // Connects to matching ports yellow, red, green, blue
+
+
 }
-myPart.size = myGrid.unit // Must have dimentions in grid units ( 2 x 3 ect.)
+myWall = new Comp(myGrid, {0,1}, 3);    //wall with zero height and one width 
+
+
 
 ```
 Player Interactions
