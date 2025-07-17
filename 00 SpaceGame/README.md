@@ -1,19 +1,29 @@
 # Space Game
+
 ## Lore
+---
 ### Factions
+---  
 #### United Planetary Organization
+...  
+
 ##### Solar Congress
 Terrian Majority w/ Martian Minority
-Sparse participation from Jovian / Main Belt 
+Sparse participation from Jovian / Main Belt
+...
 #### UN / UNTA (Terrian)
+...  
 #### Jovian People's Republic
 > Indepentent but closly relies on Main Belt Trade
 > Birth Place and Waywared home of all belters
-#### Main Belt Trade:
+
+#### Main Belt Trade "..." _TBD_
 > Independent from but closely allied with the Jovian's
 > Ensures the needs of the Main Belt Stations are met as judiciously & equitably as possible
 > Defines / Executes Effort based compenstaion labor laws
-> Manages / Executes all import / export transportation in Main Belt Space 
+> Manages / Executes all import / export transportation in Main Belt Space
+
+Accronyms:
 - MBTA (EMBEE-TEE-AY)
   - Alliance
   - ~~Advisory~~
@@ -39,7 +49,7 @@ Sparse participation from Jovian / Main Belt
 ## Game Mechanics
 
 ### Ship Systems & Management
-- cargo management
+- Cargo management
 - Ship Design and Upgrades
   - Vessel Classes
     - ultra light
@@ -159,12 +169,13 @@ Toll Manufacturing
 
 
 
-##### Asteroid class
-  - mineral composition determined by rarity
-  - metal determined by size & rarity
-  - Ices by rarity size
-  - [shape generation](../02%20TerrianGen/readme.md)
-    - SVG / Path encoding & decoding for state saves 
+##### Mining Site Generation
+
+- Mineral composition determined by rarity
+- Metal determined by size & rarity
+- Ices by rarity size
+- [Shape generation](../02%20TerrianGen/readme.md)  
+    ~~- SVG / Path encoding & decoding for state saves~~
   - vertex shader
     - INPUT: rectangle info as line primitives
       - xPos, yPos, w, h
@@ -175,13 +186,16 @@ Toll Manufacturing
   - geometry shader
     - INPUT: bounding box information -> generate astroid from line primitives
     - wrapping algorithm (number of triangles determined how?)
-  - Astroid Composition
-    - [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
-    ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
-    - [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
-      - mineral composition determined by rarity
-      - metal determined by size & rarity
-      - Ices by rarity size 
+
+###### Astroid Classification
+> Notes on the taxonomy of actual Astroids
+
+- [Abundance Data](https://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)#Sun_and_Solar_System)
+
+  ![Abundace Chart](https://upload.wikimedia.org/wikipedia/commons/6/6a/Elements_abundance-bars.svg)
+
+- [Astroid Belt wiki](https://en.wikipedia.org/wiki/Asteroid_belt#:~:text=The%20absolute%20magnitudes%20of%20most,asteroids%20might%20be%20even%20closer.)
+ 
 
 ### Belt Map System
 Trip Computer
@@ -206,6 +220,12 @@ Trip Computer
       - Age
 
 ### Crafting System
+##### Grid Editor MODE
+- edit
+  - directly edit inside a stationary grid
+- design
+  - Load / Save / Share Blueprints
+  - 
 
 #### Grid Snap
 
@@ -238,13 +258,19 @@ By implementing these methods, you can effectively manage how bodies snap to des
 
 #### Grid Tile Recipes
 
-##### Component Recipes
-> Player "READ ONLY" tiles in game
+##### Component & Modual Fabrication Costs / Recipes
+> Parts printing by volume 1M 2M
+> - moduler printers?
+>   - assemble a 1x6M printer for long hull spans
+>     - could reduce labor costs and increase reliablity late game
 - Hulls
 - Bulkheads
-- Airlock Gates & Doors
+- Airlocks & Gates & Doors
 - Living / Comfort / Rest Areas
 - Phyiscal Storage
+- Gas & Liquid Storage
+- Fluid Service & Conveying Tubing
+  - Player built or automatic
 
 ##### Module Recipes
 
@@ -257,10 +283,12 @@ Ship Systems Recipes
 Production Systems Recipes
   - Energy Generation
   - Mining Equipment
+  - Material Sizing
+    - Forge (convert billet to plate / plate to bar / bar to rod / )
   - Material Transport
   - Material Reactors
-  - Material Smelters
-  - 
+  - Material Smelters (prints base components?)
+  - Component Printers (prints advanced components) 
 
 ### Materials & Resource System
 
@@ -280,13 +308,12 @@ Haber Process / Ammonia Production
 World -> Claim -> Grid -> Subgrid
 ### Dependancies
 > List of libraries included
+
 #### matter.js
+
 #### react.js
 
-
-
-
-#### React & Matter
+##### React & Matter
 
 Using React hooks as a wrapper around the matter engine
 - [React hooks and matter.js](https://www.paulie.dev/posts/2020/08/react-hooks-and-matter-js/)
@@ -296,7 +323,7 @@ Using React hooks as a wrapper around the matter engine
 
 ### Object Classes
 
-#### Claim
+#### Claim Class
 Native JS Map as a master level ("claim") object
   ```javascript
   let myClaim = new Map();
@@ -306,7 +333,7 @@ Native JS Map as a master level ("claim") object
   - contains all grids within it's bounds
   - Player may exploit resources within it's bounds
 
-#### Grid
+#### Grid Class
 >Grids allow the player to build ship and stations in game.
 
 ```javascript
@@ -329,21 +356,35 @@ class Grid {
 
     this.mode = mode // Grid alignment property
     this.size = constrain(this.h / this.rows, 2)
-    this.cells = let cells = Array.from({length: rows * cols }, (null, i) => null) // create a null array with length rows * cols
+    this.cells = let cells = Array.from({length: rows * cols }, (null, i) => new Cell) // create a null array with length rows * cols
 
     this.align()
     this.build()
     this.display()
-
+    
   }
 
   cell(row, col){
 
-    let entry = row * col
+    let index = (row * this.rows) + col
 
-    return this.cells[]
+    return this.cells[index]
   }
 
+  /**
+   * TODO:
+   * [ ] if exit build mode
+   *  - find boundaries of volumes
+   *  - find volume connectors 
+   * [ ] Calculate material balance on volumes via connectors
+   * [ ] Calculate engergy balance on volumes via radiation & convection (limited by the speed of sound)
+   * [ ] Update 
+  */
+  update(){
+
+  }
+
+}
 ```
 
 `Grid` Type `STATIC` (eg Station, Berth)
@@ -356,32 +397,28 @@ Grid Type `DYNAMIC` (eg Ship)
 Must be in a static grid to generate or expand
 > A player's ship in game would be dynamic grid built within an exsisting static grid. That is the stationary grid must have enough unoccupied area for the intended dynamic grid.
 
-##### Grid Cell
+#### Cell Class
 > The unit of measure for a Grid
+> Placeable  parts constructed on a grid
+
+Cell Physical Properties
 - Temp ...used for energy balace
 - Pressure ...including partial pressures
 - Materials ...vapor, liquid0, liquid1, solid0, solid1 
   - Equation of state determines the phase of each material
   - ...Dusts and Gases treated the same? (dusts heated to combine, gasses cooled to combine)
   - Create detailed [Materials](#materials)
-- Occupancy ...type of object if occupied
+
+Cell Condidtional Properties
+- Members ...type of types of constiuent objects
 - Active ...if the cell is editable in game
   - isAcitve() method needed
 
-##### Grid Editor MODE
-- edit
-  - directly edit inside a stationary grid
-- design
-  - Load / Save / Share Blueprints
-  - 
-
-#### Grid Comp
-> Moveable, connectable parts constructed on a grid
 
 ```javascript
-class Comp {
+class Cell {
   constructor (myGrid, ...options)
-  this.size = {[],[]};      // Dimentions in Grid Cells ( 2 x 3 ect.)
+  this.;      // Dimentions in Grid Cells ( 2 x 3 ect.)
 
   this.pos = Array.from({length: 4}, (v, i) => i)   // Initializes an array with [0, 1, 2, 3]
     // One of the four walls in each position
@@ -390,6 +427,11 @@ class Comp {
     // 2: BOTTOM
     // 3: LEFT
 
+
+/**
+ * Connector IO's
+ * Think through mass balance 
+*/
   this.ports = [...{}];     // Connects to matching sockets YELLOW, RED, GREEN, BLUE 
   this.sockets = [...{}];   // Connects to matching ports yellow, red, green, blue
 
@@ -398,16 +440,21 @@ class Comp {
 myWall = new Comp(myGrid, {0,1}, 3);    //wall with zero height and one width 
 
 
-
 ```
-Player Interactions
-- Move
-- Place
-- Remove
-- Rotate
+
+##### Component Class
+> Player READ_ONLY access in game
 
 
-##### Modules
+```javascript
+class Component {} //Insulates & Isolates the Enviroment on a Grid
+
+//Component Types
+const HULL = symbol("Hull Grid Block")
+const BULK = symbol("Bulkhead Grid Block")
+const DOOR = symbol("Door Grid lock")
+```
+##### Module Class
 > Player EDIT Access in game
 ```javascript
 class Module {} // functional block 
@@ -418,20 +465,23 @@ const THRUSTER = symbol("Thruster Grid Block") // applys force to a dynamic grid
 const PRODUCTION = symbol("Production Grid Block") // makes, moves, converts and/or stores materials
 ```
 
+Grid Placment Testing:
 
- ##### Components
- > Player READ_ONLY access in game
-```javascript
-class Component {} //Insulates & Isolates the Enviroment on a Grid
+``` javascrtipt
 
-//Component Types
-const HULL = symbol("Hull Grid Block")
-const BULK = symbol("Bulkhead Grid Block")
-const DOOR = symbol("Door Grid lock")
+for (let i = -3 < 4){
+  let iCell = myGrid.cell(i)
+    for (let p = 0 < 4, p++){
+      let iPos = iCell.pos
+      if (iPos[p].comp == "Hull" && iPos[1].comp == "Deck")
+
+    }
+}
 ```
 
-  
-#### Player
+
+
+#### Player Class
 > Controlable Object in the game.
 
 ``` javascript
@@ -440,7 +490,7 @@ Class Player //Character's Ship
 
 > Player -> `Grid` with type `dynamic`??
 
-#### Astroid
+#### Astroid Class
 ```javascript
 Class Astroid()
 
@@ -472,16 +522,23 @@ Types ``CHONDRITE , STONEY , METALIC``
     - Select Returning Delta Mass
 - Mass and Energy Balances
 
-### Grid Editor
-- Drag & Drop
-- Component Validation
-  - size
-  - orintation
+#### Material Class
+> Class holds material properties of mixture of chemical spieces
 
-### Materials
 - Details on Material phase calculations & equation of state
   - ..on Material containing mixtures
   - ..on each chemical species
   - ..on partical size
 - Details on rendering calculations and shader inputs
   - Each Material will be proceduraly rendered
+
+### Grid Editor
+- Drag & Drop
+- Component Validation
+  - size
+  - orintation
+Player Interactions
+- Move
+- Place
+- Remove
+- Rotate
