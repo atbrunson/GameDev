@@ -1,0 +1,14 @@
+{
+  "author": "PressureSwitch",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+
+"scripts": {
+  "start": "rollup -c -w"
+}
+
+
+}
