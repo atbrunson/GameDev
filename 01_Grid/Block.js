@@ -1,3 +1,9 @@
+/**
+ * Simple P5.js Block Class
+ * 
+ * 
+ */
+
 class Block {
   constructor(x = 0, y = 0, w = 10, h = 10, c = "grey", highlight = "red") {
     this.h = h;

@@ -1,3 +1,11 @@
+/**
+ * TODO: 
+ * - replace all p5.js references with HTML Canvas Primitives
+ * - replace mode strings with symbols
+ * - 
+ */
+
+
 class Grid {
   constructor(rows = 2, cols = 2, w = width, h = height, mode = "TOP_LEFT") {
 
@@ -25,7 +33,6 @@ class Grid {
     // this.update()
 
   }; // end constructor
-
 
   align() {
     switch (this.mode) { // Defines the alignment of the grid
@@ -108,24 +115,23 @@ class Grid {
   } // end build()
 
   display() {
-    stroke(this.stroke);
-    strokeWeight(this.strokeWeight);
-    noFill();
+    stroke(this.stroke); // convert to canvas context calls
+    strokeWeight(this.strokeWeight); // convert to canvas context calls
+    noFill(); // convert to canvas context calls
 
     if (this.boarder) { // Resizes grid if there this boarder is shown
       rect(
-        this.x + this.strokeWeight / 2,
-        this.y + this.strokeWeight / 2,
+        this.x + this.strokeWeight / 2, // convert to canvas context calls
+        this.y + this.strokeWeight / 2, // convert to canvas context calls
         this.w,
         this.h
       );
     }; // end resize
 
-    // TODO
-    if (this.lines) { // draws the grid lines 
+      if (this.lines) { // draws the grid lines 
 
       for (let r = 0; r < this.rows - 1; r++) { //draws rows
-        line(
+        line(           // convert to canvas context calls
           (this.x + this.strokeWeight / 2),
           (r + 1) * this.size + this.strokeWeight / 2 + this.y,
 
@@ -135,7 +141,7 @@ class Grid {
       }; // end draw rows
 
       for (let c = 0; c < this.cols - 1; c++) { //draws cols
-        line(
+        line(           // convert to canvas context calls
           (c + 1) * this.size + this.strokeWeight / 2 + this.x,
           this.y + this.strokeWeight / 2,
 
