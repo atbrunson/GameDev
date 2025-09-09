@@ -1,14 +1,21 @@
 {
-  "author": "PressureSwitch",
-  "main": "index.js",
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+  "name": "vite-bundle",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-
-"scripts": {
-  "start": "rollup -c -w"
-}
-
-
+  "devDependencies": {
+    "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "config": "^4.1.1",
+    "matter-js": "^0.20.0",
+    "poly-decomp": "^0.3.0",
+    "react": "^19.1.1",
+    "rollup": "^4.50.1"
+  }
 }
