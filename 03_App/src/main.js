@@ -24,7 +24,8 @@ const engine = Engine.create(),
 export { engine };
 import { Ship } from "./ship.js";
 import { ProgressBar } from "./progress_bar.js";
-import {GageBar} from "./gage_bar.js"
+import { GageBar } from "./gage_bar.js"
+import { SoftBody } from "./soft_body.js";
 
 // Set properties of the WORLD
 engine.gravity.scale = 0.0;
@@ -86,26 +87,31 @@ Composite.add(world, mouseConstraint);
 // keep the mouse in sync with rendering
 render.mouse = mouse;
 
-// Create PLAYER object
+//---Create_PLAYER_object---//
 // import { Player } from "./lib/player.js";
 // var player0 = new Player(400, 300, 25);
 // player0.body.label = 'player0';
 
-// Create SHIP object
-const ship = new Ship(400, 300, 25);
+//---Create_SHIP_object---//
+const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
-
 window.ship = ship;
-ship.test = 100
-//Create Progress_Bar
-window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
-console.log("progBar1", progbar1);
 
-window.gage = new GageBar(30, 300, ship, "ship.speed", 0, 10)
-console.log("gage", gage)
+//---Create_SOFTBODY_object---//
+
+const sBody = new SoftBody(200,200,5,5,2,2,true,4,{},{stiffness:0.5, render:{lineWidth:0.25,}});
+
+
+//---Create_Progress_Bar---//
+// window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
+// console.log("progBar1", progbar1);
+
+//---Create_GAGEBAR_object---//
+// window.gage = new GageBar(30, 300, ship, "ship.speed", 0, 10)
+// console.log("gage", gage)
+
 //---MAIN_GAME_LOOP---//
-// Events.on(engine, "beforeUpdate", function () {
-// 	//Everything below this will run before every engine update
+// Events.on(engine, "beforeUpdate", function () { //Everything below this will run before every engine update
 // })
 
 const ctx = render.canvas.getContext("2d");
@@ -115,7 +121,6 @@ const ctx = render.canvas.getContext("2d");
 // if (tracking) fucntion() { INSERT CODE DIRECTLY BELOW }
 
 // create an additional render property to track if the mouse is hovering over the canvas
-render.canvas.hoverOver = false;
 render.canvas.hoverOver = false;
 
 render.canvas.addEventListener("mouseover", function () {
@@ -134,7 +139,6 @@ Events.on(render, "afterRender", function () {
   // ctx.lineWidth = 1
   // ctx.strokeStyle = "rgba(211, 211, 211, 0.75)"
   // ctx.strokeRect(10, 325, 5, 250)
-
   //ctx.fillRect(10, 325, 5, 50);
   
   if (render.canvas.hoverOver) {
@@ -151,5 +155,4 @@ Events.on(render, "afterRender", function () {
     );
   }
 
-  //console.log(mouse.absolute.x + 50, mouse.absolute.y + 50)
 });
