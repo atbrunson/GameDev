@@ -95,16 +95,18 @@ render.mouse = mouse;
 //---Create_SHIP_object---//
 const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
+ship.fuel = 0.75
+
+//DEBUGGING ONLY//
 window.ship = ship;
 
 //---Create_SOFTBODY_object---//
-
 const sBody = new SoftBody(200,200,5,5,2,2,true,4,{},{stiffness:0.5, render:{lineWidth:0.25,}});
 
 
 //---Create_Progress_Bar---//
-// window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
-// console.log("progBar1", progbar1);
+window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
+console.log("progBar1", progbar1);
 
 //---Create_GAGEBAR_object---//
 // window.gage = new GageBar(30, 300, ship, "ship.speed", 0, 10)
