@@ -23,8 +23,8 @@ const engine = Engine.create(),
 
 export { engine };
 import { Ship } from "./ship.js";
-import { ProgressBar } from "./progress_bar.js";
-import { GageBar } from "./gage_bar.js"
+import { ProgressBar } from "./ui/progress_bar.js";
+// import { GageBar } from "./ui/gage_bar.js";
 import { SoftBody } from "./soft_body.js";
 
 // Set properties of the WORLD
@@ -46,17 +46,18 @@ const render = Render.create({
     showAngleIndicator: false,
     showCollisions: false,
     showVelocity: true,
-    showDebug: false,
+    showDebug: true,
   },
 });
 Render.run(render);
 export { render };
+console.log("render", render);
 
 //---FOR DEBUGGING ONLY---//
 document.engine = engine;
 document.render = render;
 
-// Create composite for our contain{er
+// Create composite for our container
 const container = Composite.create({
   bodies: [
     // Specifies four rectangles for the walls floor & ceiling
@@ -95,14 +96,24 @@ render.mouse = mouse;
 //---Create_SHIP_object---//
 const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
-ship.fuel = 0.75
+ship.fuel = 0.75;
 
 //DEBUGGING ONLY//
 window.ship = ship;
 
 //---Create_SOFTBODY_object---//
-const sBody = new SoftBody(200,200,5,5,2,2,true,4,{},{stiffness:0.5, render:{lineWidth:0.25,}});
-
+const sBody = new SoftBody(
+  200,
+  200,
+  5,
+  5,
+  2,
+  2,
+  true,
+  4,
+  {},
+  { stiffness: 0.5, render: { lineWidth: 0.25 } }
+);
 
 //---Create_Progress_Bar---//
 window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
@@ -135,6 +146,16 @@ render.canvas.addEventListener("mouseout", function () {
   //console.log(`Hover over: ${render.canvas.hoverOver}`)
 });
 
+let wheelCounter = 0;
+render.canvas.addEventListener(
+  "wheel",
+  function () {
+    wheelCounter += mouse.wheelDelta;
+    console.log(`wheelDelta: ${mouse.wheelDelta} | wheelCounter: ${wheelCounter}`);
+  },
+  { passive: true }
+);
+
 ctx.font = "12px sans-serif";
 
 Events.on(render, "afterRender", function () {
@@ -142,7 +163,7 @@ Events.on(render, "afterRender", function () {
   // ctx.strokeStyle = "rgba(211, 211, 211, 0.75)"
   // ctx.strokeRect(10, 325, 5, 250)
   //ctx.fillRect(10, 325, 5, 50);
-  
+
   if (render.canvas.hoverOver) {
     ctx.fillStyle = "lightgrey";
     ctx.fillText(
@@ -156,5 +177,11 @@ Events.on(render, "afterRender", function () {
       mouse.absolute.y + 37
     );
   }
-
 });
+//---END_MAIN_GAME_LOOP---//
+
+// Add html dom element with instructions
+var instructions = document.createElement("div");
+instructions.setAttribute("id", "instructions");
+instructions.innerHTML = "<pre>Move: WASD<br>Rotate: QE</pre>";
+document.body.appendChild(instructions);

@@ -1,11 +1,11 @@
 /**
  * @todo DEAR LORD PLEASE USE A DRAWING LIBRARY & REACT
- * @note DO NOT USE FOR RAPIDLY CHANGING VALUES!
- * @note Will divide by ZER0.
+ *       Consider adding d3.js for drawing the progress bar
+ *       Create SVG layer over the canvas for UI elements
  *
  */
 
-import { engine, render } from "./main.js";
+import { engine, render } from "../main.js";
 import Matter from "matter-js";
 /**
  * @class ProgressBar
@@ -89,7 +89,7 @@ class ProgressBar {
         }
       ),
     ]);
-    Matter.World.add(document.engine.world, this.bar);
+    Matter.World.add(engine.world, this.bar);
 
     Matter.Events.on(render, "afterRender", () => {
       this.update();
@@ -126,15 +126,15 @@ class ProgressBar {
         _boarder.render.opacity = 0.75;
         _filling.render.fillStyle = "rgba(212, 32, 32, 0.50)";
         _filling.render.opacity = 0.75;
-      break;
-      
-      case this.value / this.h < 0.40:
+        break;
+
+      case this.value / this.h < 0.4:
         _boarder.render.strokeStyle = "rgba(212, 148, 32, 0.50)";
         _boarder.render.fillStyle = "rgba(212, 148, 32, 0.25)";
         _boarder.render.opacity = 0.75;
         _filling.render.fillStyle = "rgba(212, 148, 32, 0.50)";
         _filling.render.opacity = 0.75;
-      break;
+        break;
 
       default:
         _filling.render.fillStyle = "grey";
