@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 1122.5197 793.70081"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="containers.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.71895503"
+     inkscape:cx="266.3588"
+     inkscape:cy="452.74042"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="0"
+       originy="0"
+       spacingx="3.7795276"
+       spacingy="3.7795276"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="10"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000;fill-opacity:0.15544;stroke-width:1.00011"
+       d="M 340.15748,192.98189 V 769.10448 H 820.15749 V 192.98189 l -211.2,-134.428605 h -57.60001 z"
+       id="path2" />
+    <rect
+       style="fill:#627a00;fill-opacity:0.15544;stroke:#728f00;stroke-width:1.0094;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.718033"
+       id="rect6-1"
+       width="28.512684"
+       height="240.19171"
+       x="784.08575"
+       y="386.36087" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000;stroke-width:0.749241"
+       id="rect3-1-8"
+       width="37.046036"
+       height="50.274384"
+       x="188.97638"
+       y="403.26892" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000;stroke-width:0.668962"
+       id="rect4-2-1"
+       width="239.33104"
+       height="8.9310379"
+       x="-818.96814"
+       y="377.95276"
+       transform="scale(-1,1)" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000;stroke-width:0.668962"
+       id="rect4-2"
+       width="239.33104"
+       height="8.9310379"
+       x="-578.96814"
+       y="377.95276"
+       transform="scale(-1,1)" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke-width:1.15916"
+       id="rect1"
+       width="96"
+       height="96"
+       x="75.590553"
+       y="443.33859" />
+    <path
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000"
+       d="m 321.59432,628.08493 480.00003,-3e-5"
+       id="path3" />
+    <path
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000"
+       d="m 321.59432,646.78489 480.00003,-2e-5"
+       id="path3-5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000;stroke-width:0.749241"
+       id="rect3-1"
+       width="37.046036"
+       height="50.274384"
+       x="189.7256"
+       y="478.85947" />
+    <rect
+       style="fill:#000000;fill-opacity:0.15544;stroke:#000000;stroke-width:0.681741"
+       id="rect4"
+       width="248.91826"
+       height="8.9182587"
+       x="-589.41663"
+       y="633.26056"
+       transform="scale(-1,1)" />
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.749241;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
+       id="CM_IB_0"
+       width="37.046036"
+       height="50.274384"
+       x="533.28802"
+       y="544.25201">
+      <title
+         id="title5">CUBIC_METER_ICE_BOX</title>
+    </rect>
+    <rect
+       style="fill:#627a00;fill-opacity:0.15544;stroke:#728f00;stroke-width:1.0094;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.718033"
+       id="rect6"
+       width="28.512684"
+       height="240.19171"
+       x="349.44006"
+       y="387.87201" />
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.749241;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
+       id="CM_IB_0-4"
+       width="37.046036"
+       height="50.274384"
+       x="574.86279"
+       y="544.25201">
+      <title
+         id="title5-1">CUBIC_METER_ICE_BOX</title>
+    </rect>
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.749241;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="CM_IB_0-7"
+       width="37.046036"
+       height="50.274384"
+       x="533.28802"
+       y="493.97763">
+      <title
+         id="title5-4">CUBIC_METER_ICE_BOX</title>
+    </rect>
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.5467;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
+       id="250L_IB"
+       width="22.130466"
+       height="44.807632"
+       x="242.43646"
+       y="408.73569"
+       inkscape:label="250L_IB">
+      <title
+         id="title5-4-9">250_LITER_ICE_BOX</title>
+    </rect>
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.5467;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
+       id="CM_IB_0-7-1-0"
+       width="22.130466"
+       height="44.807632"
+       x="279.9584"
+       y="408.46234">
+      <title
+         id="title5-4-9-2">CUBIC_METER_ICE_BOX</title>
+    </rect>
+    <rect
+       style="fill:#000080;fill-opacity:0.15544;stroke:#000080;stroke-width:0.749241;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
+       id="CM_IB_0-4-2"
+       width="37.046036"
+       height="50.274384"
+       x="574.86279"
+       y="493.97763">
+      <title
+         id="title5-1-7">CUBIC_METER_ICE_BOX</title>
+    </rect>
+    <path
+       style="fill:#627a00;fill-opacity:0.15544;stroke:#000080;stroke-width:0.283465;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 188.97638,548.03152 v 18.89764 h 1.7036 v -3.77953 h 2.07592 v 3.77953 h 2.10404 l -0.12294,-3.77953 h 1.79843 v 3.77953 h 2.01271 l -0.12294,-3.77953 h 1.88976 v 3.77953 h 1.79844 l -0.12294,-3.77953 0.12294,-15.11811 h -1.79844 v 3.77953 h -1.88976 l -0.12294,-3.77953 h -1.76683 v 3.77953 H 194.737 l -0.24588,-3.77953 h -1.73522 v 3.77953 h -2.07592 v -3.77953 z"
+       id="path7" />
+    <path
+       style="fill:#627a00;fill-opacity:0.15544;stroke:#000080;stroke-width:0.283465;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 207.87401,566.92916 v -18.89764 h 1.73873 l 3.31939,2.49391 2.50095,-2.49391 h 2.17077 l 1.60876,2.12509 1.9565,-2.12509 h 1.82302 l 1.74224,2.12509 2.03729,-2.12509 h 2.14267 l -0.12294,18.89764 h -2.01973 l -2.03729,-2.26562 -1.74224,2.26562 h -1.94596 l -1.83356,-2.14268 -2.22346,2.14268 h -1.55607 l -1.76331,-2.38856 -2.01623,2.38856 z"
+       id="path8" />
+  </g>
+</svg>
