@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 
-// Matter.js Libaray Aliases
+// Matter.js Library Aliases
 const Common = Matter.Common,
   Engine = Matter.Engine,
   Render = Matter.Render,
@@ -17,14 +17,14 @@ const Common = Matter.Common,
   Bounds = Matter.Bounds,
   Detector = Matter.Detector;
 
-// Create ENGINE & top level COMPOSITE "world"
+// Create ENGINE & top level COMPOSITE "world" (window.document.engine)
 const engine = Engine.create(),
   world = engine.world;
 
 export { engine };
 import { Ship } from "./ship.js";
 import { ProgressBar } from "./progress_bar.js";
-import { GageBar } from "./gage_bar.js"
+import { GageBar } from "./gage_bar.js";
 import { SoftBody } from "./soft_body.js";
 
 // Set properties of the WORLD
@@ -34,7 +34,7 @@ engine.gravity.scale = 0.0;
 var runner = Runner.create();
 Runner.run(runner, engine);
 
-// Create & start the RENDERER
+// Create & start the RENDERER (window.document.render)
 const render = Render.create({
   element: document.body,
   engine: engine,
@@ -72,7 +72,7 @@ const container = Composite.create({
 });
 Composite.add(world, container);
 
-// Create MOUSE Object and MouseContraint
+// Create MOUSE Object and MouseConstraint
 const mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
@@ -95,14 +95,24 @@ render.mouse = mouse;
 //---Create_SHIP_object---//
 const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
-ship.fuel = 0.75
+ship.fuel = 0.75;
 
 //DEBUGGING ONLY//
 window.ship = ship;
 
 //---Create_SOFTBODY_object---//
-const sBody = new SoftBody(200,200,5,5,2,2,true,4,{},{stiffness:0.5, render:{lineWidth:0.25,}});
-
+const sBody = new SoftBody(
+  200,
+  200,
+  5,
+  5,
+  2,
+  2,
+  true,
+  4,
+  {},
+  { stiffness: 0.5, render: { lineWidth: 0.25 } }
+);
 
 //---Create_Progress_Bar---//
 window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
@@ -120,7 +130,7 @@ const ctx = render.canvas.getContext("2d");
 
 // TODO: add this as method to the MOUSE object created above
 // EXAMPLE Mouse.Tracking = true
-// if (tracking) fucntion() { INSERT CODE DIRECTLY BELOW }
+// if (tracking) function() { INSERT CODE DIRECTLY BELOW }
 
 // create an additional render property to track if the mouse is hovering over the canvas
 render.canvas.hoverOver = false;
@@ -142,7 +152,7 @@ Events.on(render, "afterRender", function () {
   // ctx.strokeStyle = "rgba(211, 211, 211, 0.75)"
   // ctx.strokeRect(10, 325, 5, 250)
   //ctx.fillRect(10, 325, 5, 50);
-  
+
   if (render.canvas.hoverOver) {
     ctx.fillStyle = "lightgrey";
     ctx.fillText(
@@ -156,5 +166,4 @@ Events.on(render, "afterRender", function () {
       mouse.absolute.y + 37
     );
   }
-
 });
