@@ -22,7 +22,7 @@ Sparse participation from Jovian / Main Belt
 > Ensures the needs of the Main Belt Stations are met as judiciously & equitably as possible
 > Defines / Executes Effort based compenstaion labor laws
 > Manages / Executes all import / export transportation in Main Belt Space
-
+> ConServ: Standardized Contract Pipline for all 
 Accronyms:
 - MBTA (EMBEE-TEE-AY)
   - Alliance
@@ -131,6 +131,8 @@ Desktop / App Launcher
 #### Claim System
 > The Trade Union Establishes and Governs ALL Mining Claims within the Main Belt
 
+ConServ:
+- public contract network and pipeline for all Mainbelt Claims & Contracts
 
 Open Reseach / Expoloration Contracts
 - Trade Union approved prospecting for new locations of desired materials. 
@@ -310,6 +312,12 @@ World -> Claim -> Grid -> Subgrid
 > List of libraries included
 
 #### matter.js
+
+#### SVG & CSS
+
+Using native SVG elements as functional UI 
+- [pointer-events](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/pointer-events)
+
 
 #### react.js
 

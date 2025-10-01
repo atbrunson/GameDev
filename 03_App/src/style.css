@@ -38,17 +38,23 @@ h1 {
 
 canvas {
   min-width: 800px;
+  max-width: 1280px;
   display: block;
+  margin-top: 0.75%;
   margin-left: auto;
   margin-right: auto;
 }
 
-#app {
-  margin: auto;
-  padding: auto;
-  text-align: left;
+#instructions {
   min-width: 800px;
+  max-width: 1280px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+
 }
+
 
 .logo {
   height: 6em;
@@ -100,5 +106,13 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+@container (min-width: 1280px) {
+  #app {
+    max-width: 1280px;
+    min-width: 800px;
+    margin: 10px;
+    text-align: left;
   }
 }
