@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 
-// Matter.js Libaray Aliases
+// Matter.js Library Aliases
 const Common = Matter.Common,
   Engine = Matter.Engine,
   Render = Matter.Render,
@@ -17,7 +17,7 @@ const Common = Matter.Common,
   Bounds = Matter.Bounds,
   Detector = Matter.Detector;
 
-// Create ENGINE & top level COMPOSITE "world"
+// Create ENGINE & top level COMPOSITE "world" (window.document.engine)
 const engine = Engine.create(),
   world = engine.world;
 
@@ -34,7 +34,7 @@ engine.gravity.scale = 0.0;
 var runner = Runner.create();
 Runner.run(runner, engine);
 
-// Create & start the RENDERER
+// Create & start the RENDERER (window.document.render)
 const render = Render.create({
   element: document.body,
   engine: engine,
@@ -73,7 +73,7 @@ const container = Composite.create({
 });
 Composite.add(world, container);
 
-// Create MOUSE Object and MouseContraint
+// Create MOUSE Object and MouseConstraint
 const mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
@@ -131,7 +131,7 @@ const ctx = render.canvas.getContext("2d");
 
 // TODO: add this as method to the MOUSE object created above
 // EXAMPLE Mouse.Tracking = true
-// if (tracking) fucntion() { INSERT CODE DIRECTLY BELOW }
+// if (tracking) function() { INSERT CODE DIRECTLY BELOW }
 
 // create an additional render property to track if the mouse is hovering over the canvas
 render.canvas.hoverOver = false;
