@@ -26,6 +26,7 @@ import { Ship } from "./ship.js";
 import { ProgressBar } from "./ui/progress_bar.js";
 // import { GageBar } from "./ui/gage_bar.js";
 import { SoftBody } from "./soft_body.js";
+import { Drill } from "./drill.js";
 
 // Set properties of the WORLD
 engine.gravity.scale = 0.0;
@@ -46,12 +47,13 @@ const render = Render.create({
     showAngleIndicator: false,
     showCollisions: false,
     showVelocity: true,
-    showDebug: true,
+    showDebug: false,
   },
 });
 Render.run(render);
 export { render };
 console.log("render", render);
+
 
 //---FOR DEBUGGING ONLY---//
 document.engine = engine;
@@ -98,7 +100,19 @@ const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 
-//DEBUGGING ONLY//
+//---Create_DRILL_object---//
+const drill = new Drill(0, 0, 5);
+// mouse down starts drilling
+render.canvas.addEventListener("mousedown", function (e) {
+  drill.startDrilling();
+});
+// mouse up stops drilling
+render.canvas.addEventListener("mouseup", function (e) {
+  drill.stopDrilling();
+});
+
+
+//---for_DEBUGGING_only---//
 window.ship = ship;
 
 //---Create_SOFTBODY_object---//
@@ -110,7 +124,7 @@ const sBody = new SoftBody(
   2,
   2,
   true,
-  4,
+  25,
   {},
   { stiffness: 0.5, render: { lineWidth: 0.25 } }
 );
@@ -159,11 +173,6 @@ render.canvas.addEventListener(
 ctx.font = "12px sans-serif";
 
 Events.on(render, "afterRender", function () {
-  // ctx.lineWidth = 1
-  // ctx.strokeStyle = "rgba(211, 211, 211, 0.75)"
-  // ctx.strokeRect(10, 325, 5, 250)
-  //ctx.fillRect(10, 325, 5, 50);
-
   if (render.canvas.hoverOver) {
     ctx.fillStyle = "lightgrey";
     ctx.fillText(
@@ -180,8 +189,24 @@ Events.on(render, "afterRender", function () {
 });
 //---END_MAIN_GAME_LOOP---//
 
-// Add html dom element with instructions
+
+
+// Add html dom element with instructions & allign left with canvas
 var instructions = document.createElement("div");
 instructions.setAttribute("id", "instructions");
 instructions.innerHTML = "<pre>Move: WASD<br>Rotate: QE</pre>";
+instructions.style.position = "relative";
+instructions.style.bottom = render.canvas.offsetTop + "px";
+instructions.style.left = render.canvas.offsetLeft + "px";
 document.body.appendChild(instructions);
+
+// Align Instructions
+window.onload = function () {
+  instructions.style.left = render.canvas.offsetLeft + "px";
+  instructions.style.bottom = render.canvas.offsetTop + "px";
+};
+// Realign left on window resize
+window.addEventListener("resize", function () {
+  instructions.style.left = render.canvas.offsetLeft + "px";
+  instructions.style.bottom = render.canvas.offsetTop + "px";
+})
