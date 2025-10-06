@@ -54,7 +54,6 @@ Render.run(render);
 export { render };
 console.log("render", render);
 
-
 //---FOR DEBUGGING ONLY---//
 document.engine = engine;
 document.render = render;
@@ -99,26 +98,25 @@ render.mouse = mouse;
 const ship = new Ship(400, 300, 10);
 ship.body.label = "ship";
 ship.fuel = 0.75;
+// debugging only
+document.ship = ship;
 
 //---Create_DRILL_object---//
 const drill = new Drill(0, 0, 5);
-// mouse down starts drilling
+
+// mouse down right button starts drilling
 render.canvas.addEventListener("mousedown", function (e) {
-  drill.startDrilling();
+  e.button === 2 ? drill.startDrilling() : null;
 });
-// mouse up stops drilling
+// mouse up right button stops drilling
 render.canvas.addEventListener("mouseup", function (e) {
-  drill.stopDrilling();
+  e.button === 2 ? drill.stopDrilling() : null;
 });
-
-
-//---for_DEBUGGING_only---//
-window.ship = ship;
 
 //---Create_SOFTBODY_object---//
 const sBody = new SoftBody(
-  200,
-  200,
+  50,
+  50,
   5,
   5,
   2,
@@ -126,7 +124,7 @@ const sBody = new SoftBody(
   true,
   25,
   {},
-  { stiffness: 0.5, render: { lineWidth: 0.25 } }
+  { stiffness: 0.75, render: { lineWidth: 0.05 } }
 );
 
 //---Create_Progress_Bar---//
@@ -165,7 +163,9 @@ render.canvas.addEventListener(
   "wheel",
   function () {
     wheelCounter += mouse.wheelDelta;
-    console.log(`wheelDelta: ${mouse.wheelDelta} | wheelCounter: ${wheelCounter}`);
+    console.log(
+      `wheelDelta: ${mouse.wheelDelta} | wheelCounter: ${wheelCounter}`
+    );
   },
   { passive: true }
 );
@@ -189,8 +189,6 @@ Events.on(render, "afterRender", function () {
 });
 //---END_MAIN_GAME_LOOP---//
 
-
-
 // Add html dom element with instructions & allign left with canvas
 var instructions = document.createElement("div");
 instructions.setAttribute("id", "instructions");
@@ -209,4 +207,4 @@ window.onload = function () {
 window.addEventListener("resize", function () {
   instructions.style.left = render.canvas.offsetLeft + "px";
   instructions.style.bottom = render.canvas.offsetTop + "px";
-})
+});

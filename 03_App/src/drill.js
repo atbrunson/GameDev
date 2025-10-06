@@ -60,11 +60,39 @@ class Drill {
       if (Matter.Bounds.overlaps(body.bounds, this.drillArea.bounds)) {
         const collision = Matter.Collision.collides(body, this.drillArea); //not working as expected
         if (collision.collided && body.label !== 'drillArea') {
-          // find potortion of body inside drill area
-          const verticesInside = body.vertices.filter((vertex) => {
-            return Matter.Vertices.contains(this.drillArea.vertices, vertex);
+          // create a path of the intersected body
+          const bodyPath = Matter.Vertices.create(body.vertices);
+          
+          // create a path of the drill area
+          const drillAreaPath = Matter.Vertices.create(this.drillArea.vertices);
+          
+          // add the drill area path to the body path
+          bodyPath.push(drillAreaPath);
+          
+          // remove all drill area path vertices not inside the body
+          const verticesInside = drillAreaPath.filter((vertex) => {
+            return Matter.Vertices.contains(body.vertices, vertex);
           });
-          console.log("collided with", body.id,"verticesInside", verticesInside);
+
+          // change the vertices of the body to the new path
+          body.vertices = bodyPath;
+          
+
+          // if (verticesInside.length > 0) {
+          //   // remove the vertices from the body
+          //   body.vertices = body.vertices.filter((vertex) => {
+          //     return !Matter.Vertices.contains(this.drillArea.vertices, vertex);
+          //   });
+          //   // crete new body with interior vertices
+          //   const interiorBody = Matter.Body.create({
+          //     parts: [Matter.Vertices.create(verticesInside, body)],
+          //     isStatic: false,
+          //     render: {
+          //       fillStyle: "rgba(0, 0, 255, 0.5)", // Semi-transparent blue
+          //     },
+          //   });
+          //   Matter.Composite.add(engine.world, interiorBody);
+          // }
           // if (verticesInside.length > 0) {
           //   // remove the vertices from the body
           //   body.vertices = body.vertices.filter((vertex) => {
@@ -90,5 +118,9 @@ class Drill {
     Matter.Events.off(engine, "beforeUpdate", this.drill.bind(this));
   }
 }
+
+
+
+
 
 export { Drill };
