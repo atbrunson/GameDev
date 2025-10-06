@@ -30,7 +30,7 @@ class Drill {
     this.label = "drill";
   }
   createDrillArea() {
-    const drillArea = Matter.Bodies.circle(this.x, this.y, this.radius, {
+    const drillArea = Matter.Bodies.polygon(this.x, this.y, 3, this.radius, {
       isSensor: true,
       isStatic: true,
       label: "drillArea",
@@ -49,7 +49,7 @@ class Drill {
   }
   drill() {
     if (!this.isDrilling) return;
-      console.log("drilling...");
+    console.log("drilling...");
     // Update drill area position to follow mouse
     const mousePosition = render.mouse.position;
     Matter.Body.setPosition(this.drillArea, mousePosition);
@@ -58,57 +58,63 @@ class Drill {
     // Remove portions of bodies within the drill area
     for (const body of bodies) {
       if (Matter.Bounds.overlaps(body.bounds, this.drillArea.bounds)) {
+        
         const collision = Matter.Collision.collides(body, this.drillArea); //not working as expected
-        if (collision.collided && body.label !== 'drillArea') {
-          // create a path of the intersected body
-          const bodyPath = Matter.Vertices.create(body.vertices);
-          
-          // create a path of the drill area
-          const drillAreaPath = Matter.Vertices.create(this.drillArea.vertices);
-          
-          // add the drill area path to the body path
-          bodyPath.push(drillAreaPath);
-          
-          // remove all drill area path vertices not inside the body
-          const verticesInside = drillAreaPath.filter((vertex) => {
-            return Matter.Vertices.contains(body.vertices, vertex);
-          });
+        if (collision !== null) {
+          if (body.label !== "drillArea" && collision.collided) {
+            console.log("collision", collision);
 
-          // change the vertices of the body to the new path
-          body.vertices = bodyPath;
-          
+            // create a path of the intersected body
+            const bodyPath = body.vertices;
+            Matter.Vertices.clockwiseSort(bodyPath);
+            console.log("body", body);
+            // create a path of the drill area
+            const drillAreaPath = Matter.Vertices.create(this.drillArea.vertices);
 
-          // if (verticesInside.length > 0) {
-          //   // remove the vertices from the body
-          //   body.vertices = body.vertices.filter((vertex) => {
-          //     return !Matter.Vertices.contains(this.drillArea.vertices, vertex);
-          //   });
-          //   // crete new body with interior vertices
-          //   const interiorBody = Matter.Body.create({
-          //     parts: [Matter.Vertices.create(verticesInside, body)],
-          //     isStatic: false,
-          //     render: {
-          //       fillStyle: "rgba(0, 0, 255, 0.5)", // Semi-transparent blue
-          //     },
-          //   });
-          //   Matter.Composite.add(engine.world, interiorBody);
-          // }
-          // if (verticesInside.length > 0) {
-          //   // remove the vertices from the body
-          //   body.vertices = body.vertices.filter((vertex) => {
-          //     return !Matter.Vertices.contains(this.drillArea.vertices, vertex);
-          //   });
-          //   // crete new body with interior vertices
-          //   const interiorBody = Matter.Body.create({
-          //     parts: [Matter.Vertices.create(verticesInside, body)],
-          //     isStatic: false,
-          //     render: {
-          //       fillStyle: "rgba(0, 0, 255, 0.5)", // Semi-transparent blue
-          //     },
-          //   });
-          //   Matter.Composite.add(engine.world, interiorBody);
-          // }
+            // find vertices of drill area inside body
+            const verticesInsideBody = drillAreaPath.filter((vertex) => {
+              return Matter.Vertices.contains(body.vertices, vertex);
+            });
+            // find vertices of body inside drill area
+            const verticesInsideDrillArea = body.vertices.filter((vertex) => {
+              return Matter.Vertices.contains(this.drillArea.vertices, vertex);
+            });
+            console.log("verticesInsideBody", verticesInsideBody);
+            console.log("verticesInsideDrillArea", verticesInsideDrillArea);
+
+            // add veriticesInsideBody to the body path
+            bodyPath.push(...verticesInsideBody);
+            Matter.Body.update(body)
+            Matter.Bounds.update(body.bounds, bodyPath);
+            Matter.Vertices.clockwiseSort(bodyPath);
+            
+            // remove verticesInsideDrill from the body path
+            for (const vertex of verticesInsideDrillArea) {
+              const index = bodyPath.indexOf(vertex);
+              if (index !== -1) {
+                bodyPath.splice(index, 1);
+              }
+            }
+            Matter.Vertices.clockwiseSort(bodyPath);
+            Matter.Bounds.update(body.bounds, bodyPath);
+            // remove body if less than 3 vertices
+            if (bodyPath.length < 3) {
+              Matter.Composite.remove(engine.world, body);
+              continue;
+            }
+
+            // if (verticesInside.length > 0) {
+            //   // remove the vertices from the body
+            //   body.vertices = body.vertices.filter((vertex) => {
+            //     return !Matter.Vertices.contains(this.drillArea.vertices, vertex);
+            //   });
+            //   // create new body with interior vertices
+            //
+            //            // }
+            //
+          }
         }
+        // if body is part of a constraint, remove the constraint
       }
     }
   }
@@ -118,9 +124,5 @@ class Drill {
     Matter.Events.off(engine, "beforeUpdate", this.drill.bind(this));
   }
 }
-
-
-
-
 
 export { Drill };

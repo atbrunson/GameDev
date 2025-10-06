@@ -43,11 +43,13 @@ const render = Render.create({
     width: 800,
     height: 600,
     hasBounds: true,
-    wireframes: false,
+    wireframes: true,
     showAngleIndicator: false,
     showCollisions: false,
-    showVelocity: true,
+    showVelocity: false,
     showDebug: false,
+    showInternalEdges: true,
+    showBounds: true,
   },
 });
 Render.run(render);
@@ -95,14 +97,14 @@ render.mouse = mouse;
 // player0.body.label = 'player0';
 
 //---Create_SHIP_object---//
-const ship = new Ship(400, 300, 10);
+const ship = new Ship(400, 300, 25);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
 document.ship = ship;
 
 //---Create_DRILL_object---//
-const drill = new Drill(0, 0, 5);
+const drill = new Drill(0, 0, 7.5);
 
 // mouse down right button starts drilling
 render.canvas.addEventListener("mousedown", function (e) {
@@ -117,12 +119,12 @@ render.canvas.addEventListener("mouseup", function (e) {
 const sBody = new SoftBody(
   50,
   50,
-  5,
-  5,
+  2,
+  2,
   2,
   2,
   true,
-  25,
+  50,
   {},
   { stiffness: 0.75, render: { lineWidth: 0.05 } }
 );
