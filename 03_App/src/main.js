@@ -1,21 +1,31 @@
 import Matter from "matter-js";
 
+// this is required for poly-decomp to work with matter.js
+
 // Matter.js Library Aliases
 const Common = Matter.Common,
-  Engine = Matter.Engine,
-  Render = Matter.Render,
-  Runner = Matter.Runner,
-  Events = Matter.Events,
-  Composite = Matter.Composite,
-  Composites = Matter.Composites,
-  Constraint = Matter.Constraint,
-  Body = Matter.Body,
-  Bodies = Matter.Bodies,
-  Mouse = Matter.Mouse,
-  MouseConstraint = Matter.MouseConstraint,
-  Vector = Matter.Vector,
-  Bounds = Matter.Bounds,
-  Detector = Matter.Detector;
+Engine = Matter.Engine,
+Render = Matter.Render,
+Runner = Matter.Runner,
+Events = Matter.Events,
+Composite = Matter.Composite,
+Composites = Matter.Composites,
+Constraint = Matter.Constraint,
+Body = Matter.Body,
+Bodies = Matter.Bodies,
+Mouse = Matter.Mouse,
+MouseConstraint = Matter.MouseConstraint,
+Vector = Matter.Vector,
+Bounds = Matter.Bounds,
+Detector = Matter.Detector;
+
+
+
+// Initialize poly-decomp with Matter.js
+import decomp from "poly-decomp";
+Common.setDecomp(decomp);
+
+// Matter.Detector code snippet (for reference)
 
 // Create ENGINE & top level COMPOSITE "world" (window.document.engine)
 const engine = Engine.create(),
@@ -60,6 +70,9 @@ console.log("render", render);
 document.engine = engine;
 document.render = render;
 
+
+
+
 // Create composite for our container
 const container = Composite.create({
   bodies: [
@@ -76,6 +89,24 @@ const container = Composite.create({
 });
 Composite.add(world, container);
 
+
+ import { loadSVG } from "./loadSVG.js";
+
+//const svgShip = loadSVG("./ship.svg");
+const svgBean = await loadSVG("./bean.svg");
+console.log("svgBean", svgBean);
+
+const scaleBean = matterScale(svgBean, 0.5);
+
+console.log("scaleBean", scaleBean);
+
+const beanBody = Bodies.fromVertices(200, 200, scaleBean)
+
+console.log("beanBody", beanBody);
+
+Composite.add(world, beanBody);
+
+
 // Create MOUSE Object and MouseConstraint
 const mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
@@ -87,6 +118,7 @@ const mouse = Mouse.create(render.canvas),
       },
     },
   });
+
 Composite.add(world, mouseConstraint);
 // keep the mouse in sync with rendering
 render.mouse = mouse;
@@ -97,7 +129,7 @@ render.mouse = mouse;
 // player0.body.label = 'player0';
 
 //---Create_SHIP_object---//
-const ship = new Ship(400, 300, 25);
+const ship = new Ship(400, 400, 50);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
@@ -116,18 +148,18 @@ render.canvas.addEventListener("mouseup", function (e) {
 });
 
 //---Create_SOFTBODY_object---//
-const sBody = new SoftBody(
-  50,
-  50,
-  2,
-  2,
-  2,
-  2,
-  true,
-  50,
-  {},
-  { stiffness: 0.75, render: { lineWidth: 0.05 } }
-);
+// const sBody = new SoftBody(
+//   50,
+//   50,
+//   2,
+//   2,
+//   2,
+//   2,
+//   true,
+//   50,
+//   {},
+//   { stiffness: 0.75, render: { lineWidth: 0.05 } }
+// );
 
 //---Create_Progress_Bar---//
 window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
