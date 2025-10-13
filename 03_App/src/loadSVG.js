@@ -45,7 +45,7 @@ const loadSVG = async function (url) {
         const vertMap = svgVertices.map((v) => [v.x, v.y]);
         
         // decompose the vertices into convex shapes
-        const decompVertSets = quickDecomp(vertMap);
+        const decompVertSets = decomp(vertMap);
         console.log("decompVerts", decompVertSets);
 
         // map decomposed vertices into x y pairs
@@ -57,9 +57,22 @@ const loadSVG = async function (url) {
           vectorSets.push(vectorSet); 
         }
         
-
         console.log("vectorSets", vectorSets);
-        return vectorSets;
+        
+        const scaleFactor = 4;
+        // scale SVG to matter.js units mm to px
+        const vectorSetsScaled = vectorSets.map((vectorSet) => {
+          return vectorSet.map((vector) => {
+            return {
+              x: vector.x * scaleFactor,
+              y: vector.y * scaleFactor,
+            };
+          });
+        })
+        
+        console.log("vectorSetsScaled", vectorSetsScaled);
+        
+        return vectorSetsScaled;
       }
 
 

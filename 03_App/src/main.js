@@ -16,6 +16,7 @@ Bodies = Matter.Bodies,
 Mouse = Matter.Mouse,
 MouseConstraint = Matter.MouseConstraint,
 Vector = Matter.Vector,
+Vertices = Matter.Vertices,
 Bounds = Matter.Bounds,
 Detector = Matter.Detector;
 
@@ -96,11 +97,8 @@ Composite.add(world, container);
 const svgBean = await loadSVG("./bean.svg");
 console.log("svgBean", svgBean);
 
-const scaleBean = matterScale(svgBean, 0.5);
-
-console.log("scaleBean", scaleBean);
-
-const beanBody = Bodies.fromVertices(200, 200, scaleBean)
+//TODO: add bodies from vertor sets individually, then composite them
+const beanBody = Bodies.fromVertices(200, 200, svgBean)
 
 console.log("beanBody", beanBody);
 
