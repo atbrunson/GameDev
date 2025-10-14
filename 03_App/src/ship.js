@@ -15,10 +15,6 @@
  * const ship = new Ship(100, 100, 50);
  */
 
-//render = get element by typ Matter.Render
-//engine = get element by typ Matter.Engine
-//engine.world =  get element by typ Matter.Engine.World
-
 import { engine, render } from "./main.js";
 import { KeyboardControl } from "./keyboard_control.js";
 import Matter from "matter-js";

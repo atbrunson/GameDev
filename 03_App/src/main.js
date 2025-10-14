@@ -1,6 +1,9 @@
 import Matter, { Svg } from "matter-js";
 
-// this is required for poly-decomp to work with matter.js
+// Initialize poly-decomp with Matter.js
+// it is required for poly-decomp to work with matter.js
+import decomp from "poly-decomp";
+Matter.Common.setDecomp(decomp);
 
 // Matter.js Library Aliases
 const Common = Matter.Common,
@@ -20,22 +23,18 @@ const Common = Matter.Common,
   Bounds = Matter.Bounds,
   Detector = Matter.Detector;
 
-// Initialize poly-decomp with Matter.js
-import decomp from "poly-decomp";
-Common.setDecomp(decomp);
-
-// Matter.Detector code snippet (for reference)
-
 // Create ENGINE & top level COMPOSITE "world" (window.document.engine)
-const engine = Engine.create(),
-  world = engine.world;
-
+const engine = Engine.create();
+const world = engine.world;
+document.engine = engine; //---For Debugging Only---//
 export { engine };
+
+// Import User-Defined Modules
+import { loadSvg, select } from "./loadSVG.js";
 import { Ship } from "./ship.js";
 import { ProgressBar } from "./ui/progress_bar.js";
-// import { GageBar } from "./ui/gage_bar.js";
-import { SoftBody } from "./soft_body.js";
 import { Drill } from "./drill.js";
+import { SoftBody } from "./soft_body.js";
 
 // Set properties of the WORLD
 engine.gravity.scale = 0.0;
@@ -62,12 +61,9 @@ const render = Render.create({
   },
 });
 Render.run(render);
-export { render };
 console.log("render", render);
-
-//---FOR DEBUGGING ONLY---//
-document.engine = engine;
-document.render = render;
+document.render = render; //---For Debugging Only---//
+export { render };
 
 // Create composite for our container
 const container = Composite.create({
@@ -82,37 +78,13 @@ const container = Composite.create({
     Bodies.rectangle(-25, 300, 50, 700, { isStatic: true, label: "Left Wall" }),
   ],
   label: "Container",
-});
-Composite.add(world, container);
-
-import { loadSVG, loadSvg, select } from "./loadSVG.js";
-
-let matterBean = await loadSvg("./bean.svg");
-matterBean = select(matterBean, "path");
-
-console.log("matterBean", matterBean);
-
-const beanVectorSets = matterBean.map((path) => {
-  return Svg.pathToVertices(path, 50);
-});
-
-const beanScaledSets = beanVectorSets.map((set) => {
-  return Vertices.scale(set, 4,4);
-})
-console.log("beanVectorSets", beanVectorSets);
-
-// creates Composite and adds bodies from vertor sets to the composite
-const Bean = Composite.create({ label: "Bean" });
-Composite.add(Bean, Bodies.fromVertices(200, 200, beanScaledSets));
-Composite.add(world, Bean);
-console.log("Bean", Bean);
-Matter.Common.info(Bean);
+}); Composite.add(world, container);
 
 
 //---Create_SVG_SHIP_object---//
 
-// load an SVG from a URL
-const shipSVG = await loadSvg("./ship.svg");
+// load an SVG from a URL ---CAVE TERRIAN---
+const shipSVG = await loadSvg("./hollow.svg");
 console.log("svgShip", shipSVG);
 // select a path from the SVG
 const shipPath = await select(shipSVG, "path");
@@ -123,23 +95,15 @@ const shipVectorSets = shipPath.map((path) => {
 }); console.log("shipVectorSets", shipVectorSets);
 // scale the vertices (use map to scale each set or scale causes an error)
 const shipScaledSets = shipVectorSets.map((set) => {
-  return Vertices.scale(set, 4,4);
-})
-console.log("shipScaledSets", shipScaledSets);
-
-
+  return Vertices.scale(set, 2.5,2.5);
+}); console.log("shipScaledSets", shipScaledSets);
 // create Composite and adds bodies from vertor sets to the composite
 const svgShip = Composite.create({ id: "svgShip", label: "svgSHIP" });
 console.log("svgShip", svgShip);
-Composite.add(svgShip, Bodies.fromVertices(200, 200, shipScaledSets));
+Composite.add(svgShip, Bodies.fromVertices(400, 300, shipScaledSets));
 Composite.add(world, svgShip);
 console.log("Bean", svgShip);
 Matter.Common.info(svgShip);
-
-
-
-
-
 
 
 // Create MOUSE Object and MouseConstraint
@@ -164,7 +128,7 @@ render.mouse = mouse;
 // player0.body.label = 'player0';
 
 //---Create_SHIP_object---//
-const ship = new Ship(400, 400, 15);
+const ship = new Ship(500, 400, 15);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
@@ -200,9 +164,6 @@ render.canvas.addEventListener("mouseup", function (e) {
 window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
 console.log("progBar1", progbar1);
 
-//---Create_GAGEBAR_object---//
-// window.gage = new GageBar(30, 300, ship, "ship.speed", 0, 10)
-// console.log("gage", gage)
 
 //---MAIN_GAME_LOOP---//
 // Events.on(engine, "beforeUpdate", function () { //Everything below this will run before every engine update
