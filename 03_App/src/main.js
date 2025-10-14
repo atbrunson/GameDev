@@ -1,26 +1,24 @@
-import Matter from "matter-js";
+import Matter, { Svg } from "matter-js";
 
 // this is required for poly-decomp to work with matter.js
 
 // Matter.js Library Aliases
 const Common = Matter.Common,
-Engine = Matter.Engine,
-Render = Matter.Render,
-Runner = Matter.Runner,
-Events = Matter.Events,
-Composite = Matter.Composite,
-Composites = Matter.Composites,
-Constraint = Matter.Constraint,
-Body = Matter.Body,
-Bodies = Matter.Bodies,
-Mouse = Matter.Mouse,
-MouseConstraint = Matter.MouseConstraint,
-Vector = Matter.Vector,
-Vertices = Matter.Vertices,
-Bounds = Matter.Bounds,
-Detector = Matter.Detector;
-
-
+  Engine = Matter.Engine,
+  Render = Matter.Render,
+  Runner = Matter.Runner,
+  Events = Matter.Events,
+  Composite = Matter.Composite,
+  Composites = Matter.Composites,
+  Constraint = Matter.Constraint,
+  Body = Matter.Body,
+  Bodies = Matter.Bodies,
+  Mouse = Matter.Mouse,
+  MouseConstraint = Matter.MouseConstraint,
+  Vector = Matter.Vector,
+  Vertices = Matter.Vertices,
+  Bounds = Matter.Bounds,
+  Detector = Matter.Detector;
 
 // Initialize poly-decomp with Matter.js
 import decomp from "poly-decomp";
@@ -71,9 +69,6 @@ console.log("render", render);
 document.engine = engine;
 document.render = render;
 
-
-
-
 // Create composite for our container
 const container = Composite.create({
   bodies: [
@@ -90,19 +85,61 @@ const container = Composite.create({
 });
 Composite.add(world, container);
 
+import { loadSVG, loadSvg, select } from "./loadSVG.js";
 
- import { loadSVG } from "./loadSVG.js";
+let matterBean = await loadSvg("./bean.svg");
+matterBean = select(matterBean, "path");
 
-//const svgShip = loadSVG("./ship.svg");
-const svgBean = await loadSVG("./bean.svg");
-console.log("svgBean", svgBean);
+console.log("matterBean", matterBean);
 
-//TODO: add bodies from vertor sets individually, then composite them
-const beanBody = Bodies.fromVertices(200, 200, svgBean)
+const beanVectorSets = matterBean.map((path) => {
+  return Svg.pathToVertices(path, 50);
+});
 
-console.log("beanBody", beanBody);
+const beanScaledSets = beanVectorSets.map((set) => {
+  return Vertices.scale(set, 4,4);
+})
+console.log("beanVectorSets", beanVectorSets);
 
-Composite.add(world, beanBody);
+// creates Composite and adds bodies from vertor sets to the composite
+const Bean = Composite.create({ label: "Bean" });
+Composite.add(Bean, Bodies.fromVertices(200, 200, beanScaledSets));
+Composite.add(world, Bean);
+console.log("Bean", Bean);
+Matter.Common.info(Bean);
+
+
+//---Create_SVG_SHIP_object---//
+
+// load an SVG from a URL
+const shipSVG = await loadSvg("./ship.svg");
+console.log("svgShip", shipSVG);
+// select a path from the SVG
+const shipPath = await select(shipSVG, "path");
+console.log("shipPath", shipPath);
+// convert the path to matter.js vertices (use map to convert each path or it causes an error)
+const shipVectorSets = shipPath.map((path) => {
+  return Svg.pathToVertices(path, 50);
+}); console.log("shipVectorSets", shipVectorSets);
+// scale the vertices (use map to scale each set or scale causes an error)
+const shipScaledSets = shipVectorSets.map((set) => {
+  return Vertices.scale(set, 4,4);
+})
+console.log("shipScaledSets", shipScaledSets);
+
+
+// create Composite and adds bodies from vertor sets to the composite
+const svgShip = Composite.create({ id: "svgShip", label: "svgSHIP" });
+console.log("svgShip", svgShip);
+Composite.add(svgShip, Bodies.fromVertices(200, 200, shipScaledSets));
+Composite.add(world, svgShip);
+console.log("Bean", svgShip);
+Matter.Common.info(svgShip);
+
+
+
+
+
 
 
 // Create MOUSE Object and MouseConstraint
@@ -127,7 +164,7 @@ render.mouse = mouse;
 // player0.body.label = 'player0';
 
 //---Create_SHIP_object---//
-const ship = new Ship(400, 400, 50);
+const ship = new Ship(400, 400, 15);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
@@ -195,9 +232,7 @@ render.canvas.addEventListener(
   "wheel",
   function () {
     wheelCounter += mouse.wheelDelta;
-    console.log(
-      `wheelDelta: ${mouse.wheelDelta} | wheelCounter: ${wheelCounter}`
-    );
+    console.log(`wheelDelta: ${mouse.wheelDelta} | wheelCounter: ${wheelCounter}`);
   },
   { passive: true }
 );

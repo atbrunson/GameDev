@@ -86,4 +86,15 @@ const select = function (root, selector) {
   return Array.prototype.slice.call(root.querySelectorAll(selector));
 };
 
-export { loadSVG };
+
+const loadSvg = function(url) {
+            return fetch(url)
+                .then(function(response) { return response.text(); })
+                .then(function(raw) { return (new window.DOMParser()).parseFromString(raw, 'image/svg+xml'); });
+            
+            };
+
+
+
+
+export { loadSVG, loadSvg, select};
