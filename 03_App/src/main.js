@@ -126,7 +126,7 @@ export { render };
  */
 const mySVG = await loadSvgPaths("./hollow.svg");
 console.log("mySVG", mySVG);
-const MyCave = new SVGcomposite(mySVG, 4, 450, 500);
+const MyCave = new SVGcomposite(mySVG, 5, 450, 500);
 console.log("MyCave", MyCave);
 
 
