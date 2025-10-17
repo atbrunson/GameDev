@@ -12,7 +12,8 @@ import { engine, render } from "./main.js";
 
 class SVGcomposite {
   constructor( SVGpaths , scale = 1, x, y) {
-    this.vertices = Common.map(SVGpaths,((path) => Svg.pathToVertices(path, 50)));
+    this.paths = SVGpaths;
+    this.vertices = Common.map(this.paths,((path) => Svg.pathToVertices(path, 50)));
    
     this.scaleFactor = scale;
     this.poisition = { x: x, y: y };

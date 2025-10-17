@@ -30,7 +30,7 @@ document.engine = engine; //---For Debugging Only---//
 export { engine };
 
 // Import User-Defined Modules
-import { loadSvgPaths, select } from "./loadSVG.js";
+import { loadSvg, loadSvgPaths, select } from "./loadSVG.js";
 import { Ship } from "./ship.js";
 import { ProgressBar } from "./ui/progress_bar.js";
 import { Drill } from "./drill.js";
@@ -122,12 +122,22 @@ export { render };
 // const bodySVG= await loadSvgPaths("./hollow.svg");
 
 /**
- *
- * **SVG composite
+ * Create SVG Composite
  */
 const mySVG = await loadSvgPaths("./hollow.svg");
 console.log("mySVG", mySVG);
-const MyCave = new SVGcomposite(mySVG, 4, 400, 300);
+const MyCave = new SVGcomposite(mySVG, 4, 450, 500);
+console.log("MyCave", MyCave);
+
+
+//LOADED PATH STYLES
+mySVG.styles = mySVG.map((path) => {return path.getAttribute("style")})
+const newSVG = await loadSvg("./hollow.svg");
+const paths = newSVG.querySelectorAll("path")
+console.log("newSVG paths", paths);
+const style = paths[0].getAttribute("style");
+console.log("newSVG style", style);
+
 
 // Create MOUSE Object and MouseConstraint
 const mouse = Mouse.create(render.canvas),
@@ -151,7 +161,7 @@ render.mouse = mouse;
 // player0.body.label = 'player0';
 
 //---Create_SHIP_object---//
-const ship = new Ship(600, 400, 15);
+const ship = new Ship(700, 450, 15);
 ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
