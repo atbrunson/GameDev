@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="32"
-   height="32"
-   viewBox="0 0 8.4666666 8.4666666"
+   width="300"
+   height="300"
+   viewBox="0 0 300 300"
    version="1.1"
    id="svg1"
    sodipodi:docname="ship.svg"
@@ -22,21 +22,31 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
-     inkscape:zoom="17.832349"
-     inkscape:cx="23.132118"
-     inkscape:cy="14.383972"
+     inkscape:zoom="2.2290436"
+     inkscape:cx="157.24232"
+     inkscape:cy="206.59084"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
-     inkscape:window-x="1912"
+     inkscape:window-x="3832"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1" />
+     inkscape:current-layer="layer1" />
   <defs
      id="defs1" />
-  <path
-     d="M 0.1,4.2 V 4.4 L 8.1,8.2 6.9,6.3 6.4,4.4 V 4 L 6.9,2.1 8.1,0.2 Z"
-     style="fill:#babdb6;fill-opacity:0.954106;stroke:#555753;stroke-width:0.169421;stroke-dasharray:none;paint-order:markers stroke fill"
-     id="ship"
-     sodipodi:nodetypes="ccccccccc"
-     inkscape:label="shipSVG" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Layer 1"
+     transform="translate(-0.14999874,-0.53231924)">
+    <path
+       id="path3"
+       style="opacity:0.8;fill:#babdb6;fill-opacity:0.956863;stroke:#555753;stroke-width:0.125;stroke-dasharray:none;paint-order:markers stroke fill"
+       d="M 0.14999874,0.53231924 41.149999,18.532319 l 57,-17.99999976 V 300.53232 l -49,-200 -49.00000026,200 z"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       id="path3-8"
+       style="opacity:0.8;fill:#babdb6;fill-opacity:0.956863;stroke:#555753;stroke-width:0.125;stroke-dasharray:none;paint-order:markers stroke fill"
+       d="m 154.15,32.532319 54,-22 35,19.293791 11,270.70621 -54,-200 -44,200 z"
+       sodipodi:nodetypes="ccccccc" />
+  </g>
 </svg>
