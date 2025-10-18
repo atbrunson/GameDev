@@ -70,7 +70,7 @@ Events.on(render, 'beforeRender', function () {
 	let translate= { x: 0, y: 0 };
 
 	// BROKEN: Mouse scroll wheel controls 
-	var scaleFactor = mouse.wheelDelta * -0.1;
+	let scaleFactor = mouse.wheelDelta * -0.1;
 
 
 	if (scaleFactor !== 0) {

@@ -16,8 +16,10 @@
     "matter-js": "^0.20.0",
     "pathseg": "^1.2.1",
     "poly-decomp": "^0.3.0",
+    "poly-decomp-es": "^0.4.2",
     "react": "^19.1.1",
     "rollup": "^4.50.1",
+    "svg-path-properties": "^2.0.0",
     "tailwindcss": "^4.1.13"
   }
 }

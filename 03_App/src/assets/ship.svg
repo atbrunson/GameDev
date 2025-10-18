@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666666 8.4666666"
    version="1.1"
    id="svg1"
    sodipodi:docname="ship.svg"
@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
-     inkscape:zoom="4.0668163"
-     inkscape:cx="324.82411"
-     inkscape:cy="349.04453"
+     inkscape:zoom="11.313709"
+     inkscape:cx="-11.932427"
+     inkscape:cy="17.36831"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="1912"
@@ -39,34 +39,12 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#babdb6;fill-opacity:0.954106;stroke:#555753;stroke-width:0.1;stroke-dasharray:none;paint-order:markers stroke fill"
-       d="m 89.115939,81.67895 v 0.145371 l 4.711063,2.279629 -0.518518,-2.225 v -0.275 l 0.532455,-2.225 z"
+       d="m 0.0847105,4.2366863 v 0.2 l 8,3.8 -1.7,-3.8 v -0.4 l 1.7,-3.8 z"
+       style="fill:#babdb6;fill-opacity:0.954106;stroke:#555753;stroke-width:0.169421;stroke-dasharray:none;paint-order:markers stroke fill"
+       id="path1" />
+    <path
        id="path2"
-       sodipodi:nodetypes="ccccccc" />
-    <path
-       style="fill:#ad7fa8;fill-opacity:0.954106;stroke:#555753;stroke-width:0.1;stroke-dasharray:none;paint-order:markers stroke fill"
-       d="m 94.379753,80.978044 c -0.251005,0.02288 -0.53648,0.164595 -0.647179,0.39103 -0.128859,0.263581 -0.0689,0.636679 0.103508,0.874072 0.129019,0.17765 0.378546,0.271095 0.598048,0.276022 0.382782,0.0086 0.475875,-0.35008 0.750451,-0.446902 0.389808,-0.137455 1.227709,-0.174147 1.227709,-0.174147 0.472328,0.02008 2.003314,-0.24736 1.644632,0.632555 1.21952,5.320174 2.071808,-7.397545 -0.08051,-2.081659 0.359644,0.89872 -0.977812,0.78479 -1.575628,0.839565 0,0 -0.82742,0.06416 -1.230599,-0.0115 -0.276869,-0.05196 -0.509893,-0.324612 -0.790432,-0.299036 z"
-       id="path3"
-       sodipodi:nodetypes="ssssaccccas" />
-    <path
-       style="fill:#babdb6;fill-opacity:0.954106;stroke:#555753;stroke-width:0.1;stroke-dasharray:none;paint-order:markers stroke fill"
-       d="m 86.833333,89.126775 v 0.145371 l 4.711063,2.279629 -0.518518,-2.225 v -0.275 l 0.532455,-2.225 z"
-       id="path2-8"
-       sodipodi:nodetypes="ccccccc" />
-    <path
-       style="fill:#ad7fa8;fill-opacity:0.954106;stroke:#555753;stroke-width:0.1;stroke-dasharray:none;paint-order:markers stroke fill"
-       d="m 91.34646,89.058419 c 0.0045,0.198771 1.021359,0.03139 1.483724,0.04876 0.462364,0.01738 0.716118,-0.0025 1.242578,-0.0052 0.52646,-0.0028 2.060241,-0.0034 1.701559,0.876527 3.476334,3.351851 3.089062,-5.668298 -0.08051,-2.081659 0.359644,0.89872 -1.528824,0.966693 -1.827732,0.99408 -0.298908,0.02739 -0.882526,0.0076 -1.344452,0.06169 -0.461927,0.05409 -1.180813,-0.144774 -1.175167,0.10584 z"
-       id="path3-2"
-       sodipodi:nodetypes="szzcczzss" />
-    <path
-       style="fill:#babdb6;fill-opacity:0.954106;stroke:#555753;stroke-width:0.1;stroke-dasharray:none;paint-order:markers stroke fill"
-       d="m 86.62513,97.49626 v 0.145371 l 4.711063,2.279629 -0.518518,-2.225 v -0.275 l 0.532455,-2.225 z"
-       id="path2-8-6"
-       sodipodi:nodetypes="ccccccc" />
-    <path
-       style="fill:#ad7fa8;fill-opacity:0.954106;stroke:none;stroke-width:0.1;stroke-dasharray:none;stroke-opacity:0.956863;paint-order:markers stroke fill"
-       d="m 95.615729,98.140496 c 0.68187,3.088394 0.266715,-4.850241 -0.186231,-1.935276 -0.146397,1.048232 -1.060493,1.155687 -1.772848,1.157714 -0.712355,0.002 -1.896997,-0.190411 -2.682281,0.148419 0.822865,0.295467 1.970313,0.135621 2.687698,0.12017 0.717385,-0.01545 1.399374,-0.539261 1.620234,0.484605 z"
-       id="path3-2-1"
-       sodipodi:nodetypes="cczczcc" />
+       style="opacity:0.89;fill:none;stroke:#000000;stroke-width:0.3302;paint-order:markers stroke fill"
+       d="M 7.7349469,4.2333331 A 0.38879365,0.42971927 0 0 1 7.3461533,4.6630524 0.38879365,0.42971927 0 0 1 6.9573596,4.2333331 0.38879365,0.42971927 0 0 1 7.3461533,3.8036138 0.38879365,0.42971927 0 0 1 7.7349469,4.2333331 Z" />
   </g>
 </svg>
