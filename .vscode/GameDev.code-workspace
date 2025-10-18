@@ -1,21 +1,7 @@
 {
   "folders": [
     {
-      "path": ".."
+      "path": "../03_App"
     }
-  ],
-  "settings": {},
-  "launch": {
-    "version": "0.2.0",
-    "configurations": [
-      
-      
-      {
-        "name": ".NET Core Attach",
-        "type": "coreclr",
-        "request": "attach"
-      }
-
-    ]
-  }
+  ]
 }

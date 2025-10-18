@@ -115,19 +115,13 @@ render.canvas.addEventListener("mouseup", function (e) {
   e.button === 2 ? drill.stopDrilling() : null;
 });
 
-//---Create_SOFTBODY_object---//
-const sBody = new SoftBody(
-  50,
-  50,
-  2,
-  2,
-  2,
-  2,
-  true,
-  50,
-  {},
-  { stiffness: 0.75, render: { lineWidth: 0.05 } }
-);
+//---Load SVG object---//
+import {loadSvg,} from "./svgLoader.js";
+const mySvg = loadSvg("./concave_rock.svg"); 
+console.log("mySvg", mySvg);
+
+
+
 
 //---Create_Progress_Bar---//
 window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
