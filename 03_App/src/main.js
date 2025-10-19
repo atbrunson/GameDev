@@ -122,11 +122,11 @@ export { render };
 // const bodySVG= await loadSvgPaths("./hollow.svg");
 
 /**
- * Create SVG Composite
+ * New composite body from SVG file
  */
 const mySVG = await loadSvgPaths("./hollow.svg");
 console.log("mySVG", mySVG);
-const MyCave = new SVGcomposite(mySVG, 5, 450, 500);
+const MyCave = new SVGcomposite(mySVG, 6, 450, 500);
 console.log("MyCave", MyCave);
 
 

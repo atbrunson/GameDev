@@ -67,7 +67,7 @@ class Drill {
             // create a path of the intersected body
             const bodyPath = body.vertices;
             Matter.Vertices.clockwiseSort(bodyPath);
-            console.log("body", body);
+            console.log("body", body.id);
             // create a path of the drill area
             const drillAreaPath = Matter.Vertices.create(this.drillArea.vertices);
 
@@ -75,12 +75,15 @@ class Drill {
             const verticesInsideBody = drillAreaPath.filter((vertex) => {
               return Matter.Vertices.contains(body.vertices, vertex);
             });
+            verticesInsideBody >= 0 ? console.log("drill verticesInsideBody", verticesInsideBody) : null;
+
+
             // find vertices of body inside drill area
             const verticesInsideDrillArea = body.vertices.filter((vertex) => {
               return Matter.Vertices.contains(this.drillArea.vertices, vertex);
-            });
-            console.log("verticesInsideBody", verticesInsideBody);
-            console.log("verticesInsideDrillArea", verticesInsideDrillArea);
+            }); 
+            verticesInsideDrillArea >= 0 ? console.log("body verticesInsideDrillArea", verticesInsideDrillArea) : null;
+
 
             // add veriticesInsideBody to the body path
             bodyPath.push(...verticesInsideBody);
