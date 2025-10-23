@@ -71,7 +71,7 @@ document.render = render; //---For Debugging Only---//
 export { render }; // to be able to access render in user-defined modules
 
 
-const myBaggie = new SoftBag(100, 100, 5, 4, 10, true, 10);
+const myBaggie = new SoftBag(100, 100, 9, 7, 10, true,15);
 
 
 // Create composite for our container

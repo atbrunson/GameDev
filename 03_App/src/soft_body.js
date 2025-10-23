@@ -50,7 +50,7 @@ class SoftBody {
     constraintOptions = Common.extend(
       {
         stiffness: 0.2,
-        render: { strokeStyle: "stroke-opacity: 50%;", type: "line", anchors: false },
+        render: { strokeStyle: "#999999", type: "line", anchors: false },
       },
       constraintOptions
     );
@@ -111,6 +111,8 @@ class SoftBag {
     this.gap = gap;
     this.crossBrace = crossBrace;
     this.label = "SoftBag";
+    this.stiffness = 0.125;
+    this.cOffet = 0;
 
     const Common = Matter.Common;
     const Composite = Matter.Composite;
@@ -119,7 +121,11 @@ class SoftBag {
 
     particleOptions = Common.extend({ inertia: Infinity }, particleOptions);
     constraintOptions = Common.extend(
-      { stiffness: 0.2, render: { type: "line", anchors: false } },
+      {
+        length: 42,
+        stiffness: this.stiffness * 2,
+        render: { type: "line", anchors: false },
+      },
       constraintOptions
     );
 
@@ -143,28 +149,106 @@ class SoftBag {
       constraintOptions
     );
 
-    this.matter.bodies = this.matter.bodies.filter((body, index) => index % 2 === 0);
-
-    console.log(this.matter);
-
-    // Add the 60° pitch pattern
     this.matter.constraints = this.matter.constraints.filter(
       // keeps if retuns true
       (constraint) =>
         constraint.bodyB.id !== this.columns + constraint.bodyA.id && // keep if bodyB.id is not equal to columns + bodyA.id
         constraint.bodyB.id !== 1 + constraint.bodyA.id && // keep if bodyB.id is not equal to 1 + bodyA.id
-        constraint.bodyB.id % 2 === 0 // keep if bodyB.id is even
+        constraint.bodyB.id % 2 === 0 && // keep if bodyB.id is even
+        (constraint.bodyA.id !== this.matter.bodies[0] || // keep if bodyA.id isn't a courner odd
+          constraint.bodyB.id !== this.matter.bodies[0]) // keep if bodyB.id isn't a courner odd
     );
 
-    const topbodies = this.matter.bodies.filter(
-      (body, index) => index % this.rows === 0
+    this.matter.bodies = this.matter.bodies.filter((body, index) => index % 2 === 0);
+
+    console.log(this.matter);
+
+    // Add the 60° pitch pattern
+    const lastBody = this.matter.bodies[this.matter.bodies.length - 1];
+    console.log("lastBody", lastBody);
+
+    const lastConstraint =
+      this.matter.constraints[this.matter.constraints.length - 1];
+    console.log("lastConstraint", lastConstraint);
+
+    const rightbodies = Composite.create({ label: "rightbodies" });
+    Composite.add(
+      rightbodies,
+      this.matter.bodies.filter(
+        (body, index) => index % this.columns === (this.columns + 1) / 2 - 1 // reserses the calculation to get the correct number of columns
+      )
     );
+    Composites.chain(rightbodies, 0, this.cOffet, 0, -this.cOffet, {
+      //length: 42, // calculate later or place bodies in a 60deg pitch
+      stiffness: this.stiffness,
+      render: { visable: true, type: "line", anchors: false },
+    });
+
+    //Composite.add(this.matter, rightbodies);
+    console.log("rightbodies", rightbodies);
+
+    const leftbodies = Composite.create({ label: "leftbodies" });
+    Composite.add(
+      leftbodies,
+      this.matter.bodies.filter((body, index) => index % this.columns === 0)
+    );
+    Composites.chain(leftbodies, 0, this.cOffet, 0, -this.cOffet, {
+      //length: 42, // calculate later or place bodies in a 60deg pitch
+      stiffness: this.stiffness,
+      render: { visable: true, type: "line", anchors: false },
+    });
+
+    //Composite.add(this.matter, leftbodies);
+    console.log("leftbodies", leftbodies);
+
+    const topbodies = Composite.create({ label: "topbodies" });
+    Composite.add(
+      topbodies,
+      this.matter.bodies.filter((body, index) => index < (this.columns + 1) / 2)
+    );
+    Composites.chain(topbodies, this.cOffet, 0, -this.cOffet, 0, {
+      //length: 42, // calculate later or place bodies in a 60deg pitch
+      stiffness: this.stiffness,
+      render: { visable: true, type: "line", anchors: false },
+    });
+
+    //Composite.add(this.matter, topbodies);
     console.log("topbodies", topbodies);
 
-    Composites.chain(this.matter, 0, 0, 0, 0, {
-      stiffness: 0.2,
-      render: { type: "line", anchors: false },
+    const middlebodies = Composite.create({ label: "middlebodies" });
+    Composite.add(
+      middlebodies,
+      this.matter.bodies.filter(
+        (body, index) =>
+          index >= this.rows / 2 + (this.columns + 1) / 2 &&
+          index <= this.matter.bodies.length - (this.columns + 1) / 2
+      )
+    );
+    Composites.chain(middlebodies, this.cOffet, 0, -this.cOffet, 0, {
+      //length: 42, // calculate later or place bodies in a 60deg pitch
+      stiffness: this.stiffness,
+      render: { visable: true, type: "line", anchors: false },
     });
+
+    //Composite.add(this.matter, middlebodies);
+    console.log("middlebodies", middlebodies);
+
+    const bottombodies = Composite.create({ label: "bottombodies" });
+    Composite.add(
+      bottombodies,
+      this.matter.bodies.filter(
+        (body, index) => index >= this.matter.bodies.length - (this.columns + 1) / 2
+      )
+    );
+    Composites.chain(bottombodies, this.cOffet, 0, -this.cOffet, 0, {
+      //length: 42, // calculate later or place bodies in a 60deg pitch
+      stiffness: this.stiffness,
+      render: { visable: true, type: "line", anchors: false },
+    });
+
+    //Composite.add(this.matter, bottombodies);
+    console.log("bottombodies", bottombodies);
+
     // add contraints for the remaining bodies
 
     Composite.add(engine.world, this.matter);
