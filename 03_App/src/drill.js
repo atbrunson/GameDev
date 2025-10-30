@@ -15,6 +15,8 @@ import { engine } from "./main.js";
 import { render } from "./main.js";
 
 class Drill {
+
+  
   /**
    * Creates a new Drill object.
    * @param {number} x - The x position of the drill
@@ -49,7 +51,7 @@ class Drill {
   }
   drill() {
     if (!this.isDrilling) return;
-    console.log("drilling...");
+    //console.log("drilling...");
     // Update drill area position to follow mouse
     const mousePosition = render.mouse.position;
     Matter.Body.setPosition(this.drillArea, mousePosition);
@@ -62,12 +64,16 @@ class Drill {
         const collision = Matter.Collision.collides(body, this.drillArea); //not working as expected
         if (collision !== null) {
           if (body.label !== "drillArea" && collision.collided) {
-            console.log("collision", collision);
+            //console.log("collision", collision);
+            
+            // check if the body.parts.length > 1
+            // if so transverse body.parts and find the body that is intersected by the drill area
+            
 
             // create a path of the intersected body
             const bodyPath = body.vertices;
             Matter.Vertices.clockwiseSort(bodyPath);
-            console.log("body", body.id);
+            Matter.Common.info("body", body.id, body);
             // create a path of the drill area
             const drillAreaPath = Matter.Vertices.create(this.drillArea.vertices);
 
@@ -75,14 +81,14 @@ class Drill {
             const verticesInsideBody = drillAreaPath.filter((vertex) => {
               return Matter.Vertices.contains(body.vertices, vertex);
             });
-            verticesInsideBody >= 0 ? console.log("drill verticesInsideBody", verticesInsideBody) : null;
+            verticesInsideBody.length >= 0 ? console.log("drill verticesInsideBody", verticesInsideBody) : null;
 
 
             // find vertices of body inside drill area
             const verticesInsideDrillArea = body.vertices.filter((vertex) => {
               return Matter.Vertices.contains(this.drillArea.vertices, vertex);
             }); 
-            verticesInsideDrillArea >= 0 ? console.log("body verticesInsideDrillArea", verticesInsideDrillArea) : null;
+            verticesInsideDrillArea.length >= 0 ? console.log("body verticesInsideDrillArea", verticesInsideDrillArea) : null;
 
 
             // add veriticesInsideBody to the body path
@@ -125,7 +131,7 @@ class Drill {
     this.isDrilling = false;
     Matter.Composite.remove(engine.world, this.drillArea);
     Matter.Events.off(engine, "beforeUpdate", this.drill.bind(this));
-  }
+  };
 }
 
 export { Drill };

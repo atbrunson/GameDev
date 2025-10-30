@@ -113,7 +113,6 @@ class SoftBag {
     this.label = "SoftBag";
     this.stiffness = 0.125;
     this.cOffet = 0;
-
     const Common = Matter.Common;
     const Composite = Matter.Composite;
     const Composites = Matter.Composites;
@@ -124,7 +123,11 @@ class SoftBag {
       {
         length: 42,
         stiffness: this.stiffness * 2,
-        render: { type: "line", anchors: false },
+        render: {
+          type: "line",
+          anchors: false,
+          visible: false
+        },
       },
       constraintOptions
     );

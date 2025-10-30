@@ -54,25 +54,22 @@ const render = Render.create({
     height: 1020,
     hasBounds: true,
     showAngleIndicator: false,
-    showCollisions: false,
-    showVelocity: false,
-    showDebug: true,
-    showInternalEdges: true,
     showBounds: true,
-    wireframes: true,
+    showCollisions: false,
+    showDebug: true,
     showIds: true,
+    showInternalEdges: true,
+    showVelocity: false,
+    wireframes: true,
   },
 });
 Render.run(render);
-
 
 console.log("render", render);
 document.render = render; //---For Debugging Only---//
 export { render }; // to be able to access render in user-defined modules
 
-
-const myBaggie = new SoftBag(100, 100, 9, 7, 10, true,15);
-
+//const myBaggie = new SoftBag(100, 100, 9, 7, 5, true, 10);
 
 // Create composite for our container
 const container = Composite.create({
@@ -88,63 +85,25 @@ const container = Composite.create({
   ],
   label: "Container",
 });
-Composite.add(world, container);
-
-// Create SVG Composite
-const bodySVG = await loadSvgPaths("./hollow.svg");
-console.log("bodySVG", bodySVG);
-
-// // convert the path to matter.js vertices
-// bodySVG.vertices = bodySVG.map((path) => Svg.pathToVertices(path, 50));
-// console.log("bodySVG.vertices", bodySVG.vertices);
-
-// // An offset deep copy of the vertices for the SVG body correcting offset for pixel to pixel accuracy
-// bodySVG.offset = Array.from(
-//   Common.map(bodySVG.vertices, (vertex) => {
-//     return Array.from(vertex).map((point) => {
-//       return { x: point.x - 0.14999874000000005, y: point.y - 0.53231924 };
-//     });
-//   })
-// );
-// console.log("bodySVG.offset", bodySVG.offset);
-
-// // A scaled deep copy of the vertices for the SVG body (cannot use Vertices.scale as it causes an error)
-// bodySVG.scaleFactor = 2.5;
-
-// bodySVG.scaledVertices = Array.from(
-//   Common.map(bodySVG.offset, (vertex) => {
-//     return Array.from(vertex).map((point) => {
-//       return { x: point.x * bodySVG.scaleFactor, y: point.y * bodySVG.scaleFactor };
-//     });
-//   })
-// );
-// console.log("bodySVG.scaledVertices", bodySVG.scaledVertices);
-
-// bodySVG.body = Composite.create({ id: "mysvgBody", label: "mysvgBody" });
-
-// console.log("bodySVG.body", bodySVG.body);
-// Composite.add(bodySVG.body, Bodies.fromVertices(200, 200, bodySVG.scaledVertices));
-// Composite.add(world, bodySVG.body);
-// Matter.Common.info(bodySVG.body);
-// load an SVG from a URL ---CAVE TERRIAN---
-// const bodySVG= await loadSvgPaths("./hollow.svg");
+//Composite.add(world, container);
 
 /** Create SVG Composite
  *  @todo load path styles from SVG
  *  @todo render path styles from SVG
  */
-// const mySVG = await loadSvgPaths("./hollow.svg");
-// console.log("mySVG", mySVG);
-// const MyCave = new SVGcomposite(mySVG, 5, 450, 500);
-// console.log("MyCave", MyCave);
-//LOAD SVG PATH STYLES
+const mySVG = await loadSvgPaths("./hollow.svg");
+console.log("mySVG", mySVG);
+const MyCave = new SVGcomposite(mySVG, 5, 450, 500);
+console.log("MyCave", MyCave);
+
+//---LOAD-SVG-PATH-STYLES//
 // mySVG.styles = mySVG.map((path) => {return path.getAttribute("style")})
 // const newSVG = await loadSvg("./hollow.svg");
 // const paths = newSVG.querySelectorAll("path")
 // console.log("newSVG paths", paths);
 // const style = paths[0].getAttribute("style");
 // console.log("newSVG style", style);
-  
+
 /** Create_SHIP_object
  */
 const ship = new Ship(700, 450, 15);
@@ -152,18 +111,18 @@ ship.body.label = "ship";
 ship.fuel = 0.75;
 // debugging only
 document.ship = ship;
-  
+
 /** Create_DRILL_object
  */
 const drill = new Drill(0, 0, 7.5);
-  
+
 /** Create_INPUT_CONTROLS
  * @todo Move to new input_controls.js
  * @todo Combine keyboard_controls.js and new input_controls.js file
  * @todo Create Mouse Control Class in src/input_controls.js
  * @todo Create view controls with every maouse or keyboard control
  */
-// Create MOUSE Object and MouseConstraint 
+// Create MOUSE Object and MouseConstraint
 const mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
@@ -187,18 +146,17 @@ render.canvas.addEventListener("mouseup", function (e) {
   e.button === 2 ? drill.stopDrilling() : null;
 });
 
-
 /** Create_Progress_Bar
  * @todo move to new ui_elements.js
  * @todo move and scale ui elements with view controls (or create new canvas for UI elements)
  */
-window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
-console.log("progBar1", progbar1);
+//window.progbar1 = new ProgressBar(5, 300, ship, "ship.fuel", 0, 1);
+//onsole.log("progBar1", progbar1);
 
-/** MAIN GAME LOOP 
- * 
- * 
-*/
+/** MAIN GAME LOOP
+ *
+ *
+ */
 // Events.on(engine, "beforeUpdate", function () { //Everything below this will run before every engine update
 // })
 
@@ -250,11 +208,9 @@ Events.on(render, "afterRender", function () {
 });
 /** END MAIN GAME LOOP */
 
-
-
 /** HTML manipulation, formatting, and styling
- * 
- * 
+ *
+ *
  */
 // Add html dom element with instructions & allign left with canvas
 var instructions = document.createElement("div");

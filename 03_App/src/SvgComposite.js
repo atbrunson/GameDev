@@ -43,14 +43,21 @@ class SVGcomposite {
     );
     console.log("this.scaledVertices", this.scaledVertices);
 
+    
+    
+    /**
+     * create individual bodies and add to composite
+     * 
+     */
     // Create SVG Composite
 
-    this.body = Composite.create({ id: "mysvgBody", label: "mysvgBody" , stroke: "black", strokeWidth: 2, fill: "white"});
+    this.composite = Composite.create({ id: "SVGcomposite", label: "SVGcomposite" });
 
-    console.log("this.body", this.body);
-    Composite.add(this.body, Bodies.fromVertices(this.poisition.x, this.poisition.y, this.scaledVertices));
-    Composite.add(engine.world, this.body);
-    Common.info(this.body);
+    this.matter = Bodies.fromVertices(this.poisition.x, this.poisition.y, this.scaledVertices);
+    console.log("this.matter", this.matter);
+    Composite.add(this.composite, this.matter);
+    Composite.add(engine.world, this.matter);
+    Common.info("SVGcomposite", this.composite);
     
 
   }// end constructor
