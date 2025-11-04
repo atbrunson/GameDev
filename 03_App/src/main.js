@@ -114,7 +114,7 @@ document.ship = ship;
 
 /** Create_DRILL_object
  */
-const drill = new Drill(0, 0, 7.5);
+const drill = new Drill(0, 0, 10);
 
 /** Create_INPUT_CONTROLS
  * @todo Move to new input_controls.js
