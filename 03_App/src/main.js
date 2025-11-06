@@ -114,7 +114,7 @@ document.ship = ship;
 
 /** Create_DRILL_object
  */
-const drill = new Drill(0, 0, 10);
+const drill = new Drill(0, 0, 25);
 
 /** Create_INPUT_CONTROLS
  * @todo Move to new input_controls.js
@@ -206,7 +206,20 @@ Events.on(render, "afterRender", function () {
     );
   }
 });
+
+
+// After Render Loop
+Events.on(render, "beforeRender", function () {
+});
+
+
+
 /** END MAIN GAME LOOP */
+
+
+
+
+
 
 /** HTML manipulation, formatting, and styling
  *

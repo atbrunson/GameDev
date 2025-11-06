@@ -30,7 +30,7 @@ class Drill {
     this.label = "drill";
   }
   createDrillArea() {
-    const drillArea = Matter.Bodies.polygon(this.x, this.y, 16, this.radius, {
+    const drillArea = Matter.Bodies.polygon(this.x, this.y, 5, this.radius, {
       isSensor: true,
       isStatic: true,
       label: "drillArea",
@@ -81,16 +81,20 @@ class Drill {
                     this.drillArea.bounds
                   )
                 ) {
-                  console.log("part: " + part, body.parts[part]);
+                  //console.log("part", body.parts[part]);
 
+                  // if part is less area than the drill area remove it
+                  //Matter.Common.info("part.area", Matter.Vertices.area(body.parts[part].vertices), "drillArea.area", this.drillArea.area);
+
+                  // find vertices of drill area inside body part
                   const verticesInsideBody = drillAreaPath.filter((vertex) => {
                     return Matter.Vertices.contains(
                       body.parts[part].vertices,
                       vertex
                     );
                   });
-                  console.log("drillverticesInsidePart: " + part, verticesInsideBody);
 
+                  // find vertices of body part inside drill area
                   const verticesInsideDrillArea = body.parts[part].vertices.filter(
                     (vertex) => {
                       return Matter.Vertices.contains(
@@ -99,21 +103,19 @@ class Drill {
                       );
                     }
                   );
-                  verticesInsideDrillArea.length > 0
-                    ? console.log(
-                        "body verticesInsideDrillArea",
-                        verticesInsideDrillArea
-                      )
-                    : null;
 
                   // add veriticesInsideBody to the body path
-                  body.parts[part].vertices.push(...verticesInsideBody);
-                  Matter.Body.update(body.parts[part].bounds); // troublesdhoot matter.body.update: Cannot read properties of undefined (reading 'x')
-                  Matter.Bounds.update(
-                    body.parts[part].bounds,
-                    body.parts[part].vertices
-                  );
+                  for (const vertex of verticesInsideBody) {
+                    Matter.Common.extend(body.parts[part].vertices, vertex);
+                    body.parts[part].vertices.push(vertex);
+                  }
                   Matter.Vertices.clockwiseSort(body.parts[part].vertices);
+
+                  // create axes from the wertices inside drill area
+                  Matter.Common.extend(
+                    body.parts[part].axes,
+                    Matter.Axes.fromVertices(verticesInsideDrillArea)
+                  );
 
                   // remove verticesInsideDrill from the body path
                   for (const vertex of verticesInsideDrillArea) {
@@ -122,16 +124,29 @@ class Drill {
                       body.parts[part].vertices.splice(index, 1);
                     }
                   }
-                  Matter.Body.update(body.parts[part]);
-                  Matter.Bounds.update(
-                    body.parts[part].bounds,
-                    body.parts[part].vertices
-                  );
-                  Matter.Vertices.clockwiseSort(body.parts[part].vertices);
+
+                  if (
+                    Matter.Vertices.area(body.parts[part].vertices) <=
+                    this.drillArea.area
+                  ) {
+                    Matter.Body.update(body.parts[part], 0);
+                    Matter.Composite.remove(engine.world, body.parts[part]);
+                  }
+
+                  // // does this part overlap with any other part?
+                  // for (const otherPart in body.parts) {
+                  //   if (otherPart !== part) {
+                  //     if (!Matter.Bounds.overlaps(body.parts[otherPart].bounds, body.parts[part].bounds)) {
+                  //       // remove the part from parts or change part's parent to itself
+                  //     }
+                  //   }
+                  // }
                 }
               }
             }
 
+            Matter.Vertices.clockwiseSort(body.vertices);
+            Matter.Body.update(body);
             // // create a path of the intersected body
             // const bodyPath = body.vertices;
             // Matter.Vertices.clockwiseSort(bodyPath);
