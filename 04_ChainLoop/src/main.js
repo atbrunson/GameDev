@@ -11,6 +11,7 @@ const Engine = Matter.Engine,
   MouseConstraint = Matter.MouseConstraint,
   Mouse = Matter.Mouse,
   Bodies = Matter.Bodies;
+  Common = Matter.Common;
 
 // create engine
 let engine = Engine.create(),
@@ -64,6 +65,7 @@ let mouse = Mouse.create(render.canvas),
 
 Composite.add(world, mouseConstraint);
 
+
 // keep the mouse in sync with rendering
 render.mouse = mouse;
 
@@ -94,21 +96,25 @@ Composite.add(box, leftWall);
 Composite.add(box, rightWall);
 Composite.add(box, ceiling);
 
-// generate ring of bodies
+// generates ring of bodies and chaning them together
 // TODO:
-// - ringChain(, ringDia{default => no collisions}) circumference = bodies
+// - separate loop chaining from ring creation
+// - create ring function
+// - create close_chain function
 
+let nBodies = 100;
 let linkDia = 5;
-let linkMass = 10;
-let cLength = 0.30 * (linkDia / 2);
-let cDamp = .5;
-let cStiff = .1;
+let linkMass = 1;
+let cLength =  0.50
+let cDamp = 1;
+let cStiff = .00001;
 let displayLink = false
-let nBodies = 200;
+
 // create ring of bodies
 let ringDia = (nBodies * linkDia + (nBodies - 1) * cLength) / Math.PI;
 let ringAngle = (2 * Math.PI) / nBodies;
 let ring = Composite.create({ label: "Ring" });
+let ringEnds = Composite.create({ label: "RingEnds" });
 
 for (let i = 0; i < nBodies; i++) {
   let x = 400 + ringDia * Math.cos(ringAngle * i);
@@ -131,16 +137,6 @@ Composites.chain(ring, 0.45, 0, -0.45, 0, {
   },
 });
 
-/*
-
-Add a constraint from the last chain body to the first chain body
-TODO:
-- should add closing constraint in the same way that the Composites.chain() does
-- create function to close a chained composite
-> function closeLoop(chain)
-
-*/
-
 Composite.add(
   ring,
   Constraint.create({
@@ -150,6 +146,7 @@ Composite.add(
     pointB: { x: -0.9 * linkDia, y: 0 },
     stiffness: cStiff,
     length: cLength,
+    mass: linkMass,
     render: {
       type: "line",
       visible: displayLink,
@@ -157,14 +154,11 @@ Composite.add(
   })
 );
 
-ring.bodies[0].render.fillStyle = "Red";
-ring.bodies[ring.bodies.length - 1].render.fillStyle = "Blue";
+
 ring.bodies.forEach((b) => {
 	Body.rotate(b, Math.PI/2 + ( ringAngle ) * ring.bodies.indexOf(b))
 	console.log("body " + b.id, 45 + ringAngle * ring.bodies.indexOf(b));
 })
-console.log(ring);
 
 
-
-Composite.add(world, [ring]);
+Composite.add(world, [box, ring]);
