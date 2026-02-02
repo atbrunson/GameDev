@@ -25,8 +25,8 @@ let render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: 1000,
-    height: 1000,
+    width: 800,
+    height: 600,
     wireframes: false,
     showAngleIndicator: true,
     showCollisions: false,
@@ -162,3 +162,44 @@ ring.bodies.forEach((b) => {
 
 
 Composite.add(world, [box, ring]);
+
+// add sliders for damping and stiffness
+let dampingSlider = document.getElementById("dampingSlider");
+let stiffnessSlider = document.getElementById("stiffnessSlider");
+let displayLinkCheckbox = document.getElementById("displayLinkCheckbox");
+
+dampingSlider.value = cDamp;
+dampingSlider.min = 0;
+dampingSlider.max = 1;
+stiffnessSlider.value = cStiff;
+stiffnessSlider.min = 0;
+stiffnessSlider.max = 1;
+displayLinkCheckbox.checked = displayLink;
+
+
+
+
+dampingSlider.oninput = function () {
+  cDamp = dampingSlider.value;
+  ring.constraints.forEach((c) => {
+    c.damping = cDamp;
+    console.log(c.damping);
+  });
+};
+
+stiffnessSlider.oninput = function () {
+  cStiff = stiffnessSlider.value;
+  ring.constraints.forEach((c) => {
+    c.stiffness = cStiff;
+    console.log(c.stiffness);
+  });
+};
+
+displayLinkCheckbox.oninput = function () {
+  displayLink = displayLinkCheckbox.checked;
+  ring.constraints.forEach((c) => {
+    c.render.visible = displayLink;
+  });
+}; 
+
+//render sliders 
