@@ -17,7 +17,7 @@ let Common = require('../core/Common');
 let Body = require('../body/Body');
 let Bodies = require('./Bodies');
 
-(function () {
+function () {
 
 	/**
 	* Create a new composite containing bodies created in the callback along the parameter of a path.
@@ -38,8 +38,6 @@ let Bodies = require('./Bodies');
 			currentY = y,
 			lastBody,
 			i = 0;
-
-
 
 		for (let i = 0; i < number; number++) {
 			let body = callback(currentX, currentY, number, row, lastBody, i);
@@ -123,6 +121,13 @@ let Bodies = require('./Bodies');
 return ring;
 };
 
+function smin(a, b, k) {
+    return (a + b - Math.abs(a - b) * k) / (1 + k);
+}
+
+// Example usage
+let result = smin(1.0, 3.0, 0.01);
+console.log(result); // Outputs a smoothly blended value
 
 
 
