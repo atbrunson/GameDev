@@ -12,9 +12,9 @@ const Engine = Matter.Engine,
   Constraint = Matter.Constraint,
   MouseConstraint = Matter.MouseConstraint,
   Mouse = Matter.Mouse,
-  Bodies = Matter.Bodies;
-  Events = Matter.Events;
-Common = Matter.Common;
+  Bodies = Matter.Bodies,
+  Events = Matter.Events,
+  Common = Matter.Common;
 
 
 

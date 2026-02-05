@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta
       name="viewport"
-      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"
+      content="width=device-width,initial-scale=1.0,minimal-ui"
     />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme" content="#000000" />
     <meta name="msapplication-navbutton-color" content="#000000" />
     <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
@@ -56,7 +56,6 @@
       p {
         color: #ffffff;
       }
-      }
 
       .slidecontainer {
         width: 100%; /* Width of the outside container */
@@ -96,9 +95,7 @@
         background: #04aa6d; /* Green background */
         cursor: pointer; /* Cursor on hover */
       }
-
     </style>
-
   </head>
   <body>
     <div id="app"><!-- append render.canvas --></div>
@@ -107,12 +104,28 @@
     <!-- <p>y = (b_2 n - sqrt(2 a_2 n^2 x - a_2^2 n^2 + n^2 (-x^2) + n))/n</p> -->
     <!-- render sliders -->
     <div class="slidecontainer">
-      <input type="range" min="1" max="100" value="50" class="slider" id="stiffnessSlider" />
+      <input
+        title="Stiffness"
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="slider"
+        id="stiffnessSlider"
+      />
     </div>
     <div class="slidecontainer">
-      <input type="range" min="1" max="100" value="50" class="slider" id="dampingSlider" />
+      <input
+        title="Damping"
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="slider"
+        id="dampingSlider"
+      />
     </div>
-    
+
     <!-- <script src="src/perlin.js"></script> -->
     <!-- <script src="src/player.js"></script> -->
     <script src="src/matter.min.js"></script>
