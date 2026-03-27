@@ -1,5 +1,4 @@
-// Developing Extensions for Matter.js
-// 04_ChainLoop/src/main.js
+//matter.js testing
 
 console.log(app);
 
@@ -16,6 +15,8 @@ const Engine = Matter.Engine,
   Bodies = Matter.Bodies,
   Events = Matter.Events,
   Common = Matter.Common;
+
+
 
 // create engine
 let engine = Engine.create(),
@@ -40,6 +41,19 @@ let render = Render.create({
   },
 });
 console.log(render);
+// create svg container on top of the canvas
+let draw = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+draw.setAttribute("id", "draw")
+draw.setAttribute("width", render.options.width);
+draw.setAttribute("height", render.options.height);
+draw.setAttribute("viewBox", "0 0 " + render.options.width + " " + render.options.height);
+
+document.getElementById("ui").appendChild(draw)
+
+console.log(draw);
+var meta= SVG().nested(draw)
+var rect = SVG().rect(100, 100).fill('red')
+draw.set
 
 // fit the render viewport to the scene
 Render.lookAt(render, {
@@ -106,36 +120,31 @@ Composite.add(box, ceiling);
 // - create ring function
 // - create close_chain method
 
-let nBodies = 50;
+let nBodies = 100;
 let linkDia = 5;
 let linkMass = 1;
-let cLength = 5.0;
+let cLength = 0.5;
 let cDamp = 1;
-let cStiff = 0.0005;
-let displayLink = true;
-let displayChain = true;
-let noCollisions = true; // links don't collide
+let cStiff = 0.00001;
+let displayLink = false;
 
 // create composite where the bodies are arranged in a ring
 let ringDia = (nBodies * linkDia + (nBodies - 1) * cLength) / Math.PI;
 let ringAngle = (2 * Math.PI) / nBodies;
 let ring = Composite.create({ label: "Ring" });
+let ringEnds = Composite.create({ label: "RingEnds" });
 
 for (let i = 0; i < nBodies; i++) {
   let x = 400 + ringDia * Math.cos(ringAngle * i);
   let y = 300 + ringDia * Math.sin(ringAngle * i);
 
   let link = Bodies.circle(x, y, linkDia, {
-    render: {
-      fillStyle: "darkgrey",
-      visible: displayChain
-    },
+    render: { fillStyle: "darkgrey" },
     label: "link" + i,
   });
   Composite.addBody(ring, link);
 }
 
-// standard use of chain
 Composites.chain(ring, 0.45, 0, -0.45, 0, {
   stiffness: cStiff,
   length: cLength,
@@ -146,14 +155,13 @@ Composites.chain(ring, 0.45, 0, -0.45, 0, {
   },
 });
 
-// // looped chain (close chain)
-Composite.addConstraint(
+
+
+Composite.add(
   ring,
   Constraint.create({
     bodyA: ring.bodies[ring.bodies.length - 1],
-    
     pointA: { x: 0.9 * linkDia, y: 0 },
-    
     bodyB: ring.bodies[0],
     pointB: { x: -0.9 * linkDia, y: 0 },
     stiffness: cStiff,
@@ -165,11 +173,62 @@ Composite.addConstraint(
     },
   }),
 );
-// rotates bodies of loop for top to bottomalignment
+
 ring.bodies.forEach((b) => {
   Body.rotate(b, Math.PI / 2 + ringAngle * ring.bodies.indexOf(b));
-  // console.log("body " + b.id, 45 + ringAngle * ring.bodies.indexOf(b));
+  console.log("body " + b.id, 45 + ringAngle * ring.bodies.indexOf(b));
 });
 
-console.log(ring);
 Composite.add(world, [box, ring]);
+
+
+
+
+
+
+function smin(a, b, k) {
+  let res = Math.exp(-k * a) + Math.exp(-k * b);
+  return -Math.log(res) / k;
+}
+
+
+// add sliders for damping and stiffness
+let dampingSlider = document.getElementById("dampingSlider");
+let stiffnessSlider = document.getElementById("stiffnessSlider");
+let displayLinkCheckbox = document.getElementById("displayLinkCheckbox");
+
+dampingSlider.value = cDamp;
+dampingSlider.min = 0;
+dampingSlider.max = 1;
+stiffnessSlider.value = cStiff;
+stiffnessSlider.min = 0;
+stiffnessSlider.max = 1;
+displayLinkCheckbox.checked = displayLink;
+
+
+
+
+dampingSlider.oninput = function () {
+  cDamp = dampingSlider.value;
+  ring.constraints.forEach((c) => {
+    c.damping = cDamp;
+    console.log(c.damping);
+  });
+};
+
+stiffnessSlider.oninput = function () {
+  cStiff = stiffnessSlider.value;
+  ring.constraints.forEach((c) => {
+    c.stiffness = cStiff;
+    console.log(c.stiffness);
+  });
+};
+
+displayLinkCheckbox.oninput = function () {
+  displayLink = displayLinkCheckbox.checked;
+  ring.constraints.forEach((c) => {
+    c.render.visible = displayLink;
+  });
+}; 
+
+//render sliders 
