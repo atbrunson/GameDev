@@ -40,7 +40,6 @@ class Block {
     // inGrid (return grid object) => look at grid bounds
     // this.x = Grid.height/Grid.rows
     // this.y = Grid.width/Grid.cols
-
   }
 
 

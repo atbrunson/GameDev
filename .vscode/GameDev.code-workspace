@@ -1,10 +1,9 @@
 {
   "folders": [
     {
-      "path": "../03_App"
-    },
-    {
-      "path": "../04_ChainLoop"
+      "path": "..",
+      "name": "GameDev",
+      "workspaceFolderIndex": 1,
     }
   ]
 }
