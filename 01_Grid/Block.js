@@ -1,7 +1,6 @@
 /**
  * Simple P5.js Block Class
  * 
- * 
  */
 
 class Block {
